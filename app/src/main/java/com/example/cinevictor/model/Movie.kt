@@ -14,6 +14,7 @@ data class Review(
 data class User(
     val id: String,
     val name: String,
+    @DrawableRes val image: Int
 )
 
 data class Movie(

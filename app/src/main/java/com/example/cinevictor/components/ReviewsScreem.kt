@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.cinevictor.R
 import com.example.reviewcinevictor.ui.MoviesReviewStore
 import com.example.reviewcinevictor.ui.reviews.components.ReviewItem
 import model.Review
@@ -25,7 +26,7 @@ import model.User
 val reviewsFriends = listOf(
     Review(
         id = "1",
-        user = User(id = "u0", name = "Amanda"),
+        user = User(id = "u0", name = "Amanda", R.drawable.perfilamanda),
         movie = MoviesReviewStore.popularWithFriends[0],
         rating = 4,
         comment = "Flojita",
@@ -36,7 +37,7 @@ val reviewsFriends = listOf(
 val reviews = listOf(
     Review(
         id = "1",
-        user = User(id = "u1", name = "Juan"),
+        user = User(id = "u1", name = "Juan", R.drawable.perfiljuan),
         movie = MoviesReviewStore.popularThisWeek[0],
         rating = 8,
         comment = "Excelente película",
@@ -44,7 +45,7 @@ val reviews = listOf(
     ),
     Review(
         id = "2",
-        user = User(id = "u2", name = "María"),
+        user = User(id = "u2", name = "María", R.drawable.perfilmaria),
         movie = MoviesReviewStore.popularThisWeek[1],
         rating = 7,
         comment = "Muy entretenida",
@@ -65,9 +66,9 @@ fun ReviewsScreen(
 
         Column {
             Text(
-                text = "Popular With Friends",
+                text = "New from friends",
                 color = Color.White,
-                style = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Bold) // Estilo de texto
+                style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold)
             )
             LazyColumn {
                 items(reviewsFriends) { review ->
@@ -78,7 +79,7 @@ fun ReviewsScreen(
             Text(
                 text = "Popular This Week",
                 color = Color.White,
-                style = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Bold) // Estilo de texto
+                style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold)
             )
             LazyColumn {
                 items(reviews) { review ->
