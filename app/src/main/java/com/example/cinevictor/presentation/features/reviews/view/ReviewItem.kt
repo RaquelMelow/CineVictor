@@ -1,4 +1,4 @@
-package com.example.reviewcinevictor.ui.reviews.components
+package com.example.cinevictor.presentation.features.reviews.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -26,11 +26,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import model.Review
-
+import com.example.cinevictor.presentation.features.reviews.model.ReviewData
 
 @Composable
-fun ReviewItem(review: Review) {
+fun ReviewItem(reviewData: ReviewData) {
     Card(
         shape = RectangleShape,
         colors = CardDefaults.cardColors(
@@ -44,15 +43,17 @@ fun ReviewItem(review: Review) {
                 Modifier.fillMaxSize(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = "${review.movie.title}",
+                Text(
+                    text = reviewData.movie.title,
                     style = TextStyle(
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xFFE4E7FF)
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFFE4E7FF)
                     )
                 )
 
-                Text(text = "${review.movie.year}",
+                Text(
+                    text = "${reviewData.movie.year}",
                     style = TextStyle(
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Light,
@@ -62,7 +63,8 @@ fun ReviewItem(review: Review) {
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                Text(text = "${review.user.name}",
+                Text(
+                    text = reviewData.user.name,
                     modifier = Modifier.padding(top = 2.dp),
                     style = TextStyle(
                         fontSize = 10.sp,
@@ -72,7 +74,7 @@ fun ReviewItem(review: Review) {
                 )
 
                 Image(
-                    painter = painterResource(id = review.user.image),
+                    painter = painterResource(id = reviewData.user.image),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -80,10 +82,11 @@ fun ReviewItem(review: Review) {
                         .size(width = 20.dp, height = 20.dp)
                         .border(1.dp, Color(0xFFAFB3D0), CircleShape)
                         .clip(CircleShape)
-                    )
+                )
             }
 
-            Text("${review.rating}/10",
+            Text(
+                "${reviewData.rating}/10",
                 modifier = Modifier
                     .padding(2.dp),
                 style = TextStyle(
@@ -94,9 +97,9 @@ fun ReviewItem(review: Review) {
             )
 
 
-            Row{
+            Row {
                 Image(
-                    painter = painterResource(id = review.movie.image),
+                    painter = painterResource(id = reviewData.movie.image),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -106,7 +109,7 @@ fun ReviewItem(review: Review) {
 
 
                 Text(
-                    text = "${review.comment}",
+                    text = reviewData.comment,
                     style = TextStyle(
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Medium,
@@ -114,7 +117,7 @@ fun ReviewItem(review: Review) {
                     modifier = Modifier
                         .align(Alignment.Top)
                         .padding(start = 2.dp),
-                    )
+                )
 
 
             }

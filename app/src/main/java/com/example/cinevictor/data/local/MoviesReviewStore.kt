@@ -1,7 +1,7 @@
-package com.example.reviewcinevictor.ui
+package com.example.cinevictor.data.local
 
 import com.example.cinevictor.R
-import model.Movie
+import com.example.cinevictor.model.Movie
 
 object MoviesReviewStore {
     val popularThisWeek = listOf(

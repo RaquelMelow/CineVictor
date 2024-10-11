@@ -1,4 +1,4 @@
-package com.example.reviewcinevictor.ui.reviews
+package com.example.cinevictor.presentation.features.reviews.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -18,13 +18,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cinevictor.R
-import com.example.reviewcinevictor.ui.MoviesReviewStore
-import com.example.reviewcinevictor.ui.reviews.components.ReviewItem
-import model.Review
-import model.User
+import com.example.cinevictor.data.local.MoviesReviewStore
+import com.example.cinevictor.presentation.features.reviews.model.ReviewData
+import com.example.cinevictor.model.User
 
 val reviewsFriends = listOf(
-    Review(
+    ReviewData(
         id = "1",
         user = User(id = "u0", name = "Amanda", R.drawable.perfilamanda),
         movie = MoviesReviewStore.popularWithFriends[0],
@@ -34,8 +33,8 @@ val reviewsFriends = listOf(
     )
 )
 
-val reviews = listOf(
-    Review(
+val reviewData = listOf(
+    ReviewData(
         id = "1",
         user = User(id = "u1", name = "Juan", R.drawable.perfiljuan),
         movie = MoviesReviewStore.popularThisWeek[0],
@@ -43,7 +42,7 @@ val reviews = listOf(
         comment = "Excelente película",
         date = "2024-09-29"
     ),
-    Review(
+    ReviewData(
         id = "2",
         user = User(id = "u2", name = "María", R.drawable.perfilmaria),
         movie = MoviesReviewStore.popularThisWeek[1],
@@ -59,7 +58,6 @@ fun ReviewsScreen(
 ) {
     Box(
         modifier = modifier
-            .fillMaxSize()
             .background(Color(0xFF1A1C2D))
             .padding(16.dp)
     ) {
@@ -82,7 +80,7 @@ fun ReviewsScreen(
                 style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold)
             )
             LazyColumn {
-                items(reviews) { review ->
+                items(reviewData) { review ->
                     ReviewItem(review)
                 }
             }
