@@ -1,4 +1,4 @@
-package com.example.cinevictor.ui.theme
+package com.example.cinevictor.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
