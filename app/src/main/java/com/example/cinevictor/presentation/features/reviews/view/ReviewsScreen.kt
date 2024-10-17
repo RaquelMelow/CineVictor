@@ -17,15 +17,14 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.cinevictor.R
 import com.example.cinevictor.data.local.MoviesReviewStore
+import com.example.cinevictor.data.local.users
 import com.example.cinevictor.presentation.features.reviews.model.ReviewData
-import com.example.cinevictor.model.User
 
 val reviewsFriends = listOf(
     ReviewData(
         id = "1",
-        user = User(id = "u0", name = "Amanda", R.drawable.perfilamanda),
+        user = users[0],
         movie = MoviesReviewStore.popularWithFriends[0],
         rating = 4,
         comment = "Flojita",
@@ -36,7 +35,7 @@ val reviewsFriends = listOf(
 val reviewData = listOf(
     ReviewData(
         id = "1",
-        user = User(id = "u1", name = "Juan", R.drawable.perfiljuan),
+        user = users[1],
         movie = MoviesReviewStore.popularThisWeek[0],
         rating = 8,
         comment = "Excelente película",
@@ -44,7 +43,7 @@ val reviewData = listOf(
     ),
     ReviewData(
         id = "2",
-        user = User(id = "u2", name = "María", R.drawable.perfilmaria),
+        user = users[2],
         movie = MoviesReviewStore.popularThisWeek[1],
         rating = 7,
         comment = "Muy entretenida",
@@ -58,6 +57,7 @@ fun ReviewsScreen(
 ) {
     Box(
         modifier = modifier
+            .fillMaxSize()
             .background(Color(0xFF1A1C2D))
             .padding(16.dp)
     ) {

@@ -26,10 +26,11 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
+import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults
+import androidx.compose.material3.TabRowDefaults.SecondaryIndicator
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -45,11 +46,15 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cinevictor.model.NavigationItems
+import com.example.cinevictor.presentation.features.films.Films
 import com.example.cinevictor.presentation.features.reviews.view.ReviewsScreen
+import com.example.cinevictor.presentation.features.user.PreviewUserItem
 import kotlinx.coroutines.launch
 
 
@@ -77,19 +82,35 @@ fun CineVictorNavigationDrawer(
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            ModalDrawerSheet {
+            ModalDrawerSheet(
+                drawerContainerColor = Color(0xFF727272),
+                drawerShape = RectangleShape,
+                drawerContentColor = Color.White
+            ){
+
+                PreviewUserItem()
+
                 Spacer(modifier = Modifier.height(16.dp))
                 items.forEachIndexed { index, item ->
                     NavigationDrawerItem(
-                        label = { Text(text = item.title) },
-                        icon = { Icon(imageVector = item.selectedIcon, contentDescription = null) },
+                        label = { Text(text = item.title, color = Color.White) },
+                        icon = { Icon(
+                            imageVector = item.selectedIcon,
+                            contentDescription = null,
+                            tint = Color.White)
+                       },
                         selected = index == selectedItemIndex,
                         onClick = {
                             selectedItemIndex = index
                             scope.launch {
                                 drawerState.close()
                             }
-                        }
+                        },
+                        colors = NavigationDrawerItemDefaults.colors(
+                            unselectedContainerColor = Color.Transparent,
+                            selectedContainerColor = Color(0xFFA2A2A2)
+                        ),
+                        shape = RectangleShape
                     )
                 }
             }
@@ -101,7 +122,11 @@ fun CineVictorNavigationDrawer(
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = Color(0xFF727272)
                     ),
-                    title = { Text(text = "Popular", color = Color.White, fontSize = 20.sp) },
+                    title = { Text(text = "Popular",
+                        color = Color.White,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold)
+                    },
                     navigationIcon = {
                         IconButton(onClick = {
                             scope.launch {
@@ -131,7 +156,7 @@ fun CineVictorNavigationDrawer(
                     modifier = Modifier
                         .fillMaxWidth(),
                     indicator = { tabPositions ->
-                        TabRowDefaults.Indicator(
+                        SecondaryIndicator(
                             modifier = Modifier.tabIndicatorOffset(tabPositions[selectedTab]),
                             color = Color(0xFF00FF00)
                         )
@@ -141,17 +166,26 @@ fun CineVictorNavigationDrawer(
                         Tab(
                             selected = selectedTab == index,
                             onClick = { selectedTab = index },
-                            text = { Text(text = tabName, color = Color.White) }
+                            text = {
+                                Text(
+                                    text = tabName,
+                                    color = Color.White,
+                                    fontWeight = if (selectedTab == index) FontWeight.Bold else FontWeight.Normal
+                                )
+                            }
                         )
                     }
                 }
 
                 when (selectedTab) {
+                    0 -> Films()
                     1 -> ReviewsScreen()
+
                 }
             }
         }
     }
 }
+
 
 
