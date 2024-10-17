@@ -1,4 +1,4 @@
-package com.example.cinevictor
+package com.example.cinevictor.presentation.features.films
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.cinevictor.R
 
 data class MovieData(
     val rowTitle: String,
@@ -38,31 +39,37 @@ fun Films(modifier: Modifier = Modifier) {
     val popularOfTheWeek = listOf<MovieData>(
         MovieData(
             "Popular of the week",
-            listOf(R.drawable.torrente,
+            listOf(
+                R.drawable.torrente,
                 R.drawable.eljoker,
                 R.drawable.avatar,
                 R.drawable.bleraner,
-                R.drawable.pulpfiction)
+                R.drawable.pulpfiction
+            )
         ),
     )
     val newForFriend = listOf<MovieData>(
         MovieData(
                 "New for friend",
-            listOf(R.drawable.avatar,
+            listOf(
+                R.drawable.avatar,
                 R.drawable.eljoker,
                 R.drawable.avatar,
                 R.drawable.bleraner,
-                R.drawable.pulpfiction)
+                R.drawable.pulpfiction
+            )
         ),
         )
     val popularWithFriend = listOf<MovieData>(
         MovieData(
             "Popular whit friend",
-            listOf(R.drawable.torrente,
+            listOf(
+                R.drawable.torrente,
                 R.drawable.eljoker,
                 R.drawable.avatar,
                 R.drawable.bleraner,
-                R.drawable.pulpfiction)
+                R.drawable.pulpfiction
+            )
         )
     )
         LazyColumn(modifier
