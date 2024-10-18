@@ -1,4 +1,4 @@
-package com.example.cinevictor
+package com.example.cinevictor.presentation.features.films.view
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -26,48 +27,46 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import com.example.cinevictor.R
+import com.example.cinevictor.presentation.features.films.viewmodel.MoviesViewModel
+import androidx.compose.runtime.*
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.cinevictor.presentation.features.films.viewmodel.Foo
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 data class MovieData(
     val rowTitle: String,
     @DrawableRes val posters: List<Int>
 )
 
+fun <VM: ViewModel> viewModelFactory(initializer: () -> VM): ViewModelProvider.Factory {
+    return object : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return initializer() as T
+        }
+    }
+}
+
 @Composable
 fun Films(modifier: Modifier = Modifier) {
 
-    val popularOfTheWeek = listOf<MovieData>(
-        MovieData(
-            "Popular of the week",
-            listOf(R.drawable.torrente,
-                R.drawable.eljoker,
-                R.drawable.avatar,
-                R.drawable.bleraner,
-                R.drawable.pulpfiction)
-        ),
-    )
-    val newForFriend = listOf<MovieData>(
-        MovieData(
-                "New for friend",
-            listOf(R.drawable.avatar,
-                R.drawable.eljoker,
-                R.drawable.avatar,
-                R.drawable.bleraner,
-                R.drawable.pulpfiction)
-        ),
-        )
-    val popularWithFriend = listOf<MovieData>(
-        MovieData(
-            "Popular whit friend",
-            listOf(R.drawable.torrente,
-                R.drawable.eljoker,
-                R.drawable.avatar,
-                R.drawable.bleraner,
-                R.drawable.pulpfiction)
-        )
-    )
-        LazyColumn(modifier
-            .fillMaxSize()
-            .background(Color.Black)
+    val viewModel: MoviesViewModel = viewModel<MoviesViewModel>()
+
+    val popularOfTheWeek by viewModel.popularOfTheWeek.collectAsState(initial = emptyList())
+    val newForFriend by viewModel.newForFriend.collectAsState(initial = emptyList())
+    val popularWithFriend by viewModel.popularWithFriend.collectAsState(initial = emptyList())
+
+        LazyColumn(
+            modifier
+                .fillMaxSize()
+                .background(Color.Black)
         ) {
             items(popularOfTheWeek ) { movie ->
                 MovieItem(movie)
@@ -105,9 +104,11 @@ fun MovieItem(data: MovieData) {
                     modifier = Modifier
                         .width(100.dp)
                         .height(200.dp)
-                        .padding(top = 25.dp,
+                        .padding(
+                            top = 25.dp,
                             bottom = 25.dp,
-                            end = 5.dp)
+                            end = 5.dp
+                        )
                         .clip(RoundedCornerShape(10.dp))
                 )
             }
