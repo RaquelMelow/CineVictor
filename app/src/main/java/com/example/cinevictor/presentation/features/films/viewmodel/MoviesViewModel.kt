@@ -26,8 +26,7 @@ class MoviesViewModel : ViewModel() {
     }
 
     private fun loadMovies() {
-        viewModelScope.launch(Dispatchers.IO){
-
+        viewModelScope.launch {
             _popularOfTheWeek.value = listOf(
                 MovieData("Popular of the week", listOf(R.drawable.torrente,
                     R.drawable.eljoker,
@@ -49,7 +48,6 @@ class MoviesViewModel : ViewModel() {
                     R.drawable.bleraner,
                     R.drawable.pulpfiction))
             )
-
         }
     }
 }
