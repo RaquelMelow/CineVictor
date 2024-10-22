@@ -29,12 +29,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.cinevictor.presentation.features.films.model.MovieData
-import com.example.cinevictor.presentation.features.films.viewmodel.MoviesViewModel
+import com.example.cinevictor.presentation.features.films.viewmodel.FilmsViewModel
 
 @Composable
-fun Films(modifier: Modifier = Modifier) {
+fun FilmsScreen(modifier: Modifier = Modifier) {
 
-    val viewModel: MoviesViewModel = viewModel<MoviesViewModel>()
+    val viewModel: FilmsViewModel = viewModel<FilmsViewModel>()
 
     val popularOfTheWeek by viewModel.popularOfTheWeek.collectAsState(initial = emptyList())
     val newForFriend by viewModel.newForFriend.collectAsState(initial = emptyList())
@@ -97,6 +97,6 @@ fun MovieItem(data: MovieData) {
 @Composable
 fun PreviewFilms() {
     Surface(Modifier.fillMaxWidth()) {
-        Films()
+        FilmsScreen()
     }
 }

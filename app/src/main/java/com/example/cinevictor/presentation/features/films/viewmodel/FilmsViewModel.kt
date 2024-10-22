@@ -4,13 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinevictor.R
 import com.example.cinevictor.presentation.features.films.model.MovieData
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class MoviesViewModel : ViewModel() {
+class FilmsViewModel : ViewModel() {
 
     private val _popularOfTheWeek = MutableStateFlow<List<MovieData>>(emptyList())
     val popularOfTheWeek: StateFlow<List<MovieData>> = _popularOfTheWeek.asStateFlow()
