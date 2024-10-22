@@ -1,4 +1,4 @@
-package com.example.cinevictor.presentation.features.films
+package com.example.cinevictor.presentation.features.popular.films
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image

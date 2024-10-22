@@ -1,4 +1,4 @@
-package com.example.cinevictor.presentation.features.reviews.view
+package com.example.cinevictor.presentation.features.popular.reviews.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cinevictor.data.local.MoviesReviewStore
 import com.example.cinevictor.data.local.users
-import com.example.cinevictor.presentation.features.reviews.model.ReviewData
+import com.example.cinevictor.presentation.features.popular.reviews.model.ReviewData
 
 val reviewsFriends = listOf(
     ReviewData(

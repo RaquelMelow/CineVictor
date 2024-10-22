@@ -1,4 +1,4 @@
-package com.example.cinevictor.presentation.features.reviews.view
+package com.example.cinevictor.presentation.features.popular.reviews.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -26,7 +26,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.cinevictor.presentation.features.reviews.model.ReviewData
+import com.example.cinevictor.presentation.features.popular.reviews.model.ReviewData
 
 @Composable
 fun ReviewItem(reviewData: ReviewData) {
