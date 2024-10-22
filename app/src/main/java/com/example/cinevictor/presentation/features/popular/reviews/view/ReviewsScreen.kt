@@ -26,32 +26,28 @@ import com.example.cinevictor.presentation.ui.theme.CineVictorTheme
 
 
 @Composable
-fun ReviewsScreen(
-    modifier: Modifier = Modifier,
-) {
+fun ReviewsScreen() {
 
     val viewModel: ReviewsViewModel = viewModel<ReviewsViewModel>()
 
     val friendsReviews by viewModel.friendsReviews.collectAsState()
     val popularReviews by viewModel.popularReviews.collectAsState()
 
-    Box(
-        modifier = modifier
+
+    Column(
+        Modifier
+            .fillMaxSize()
             .background(Color(0xFF1A1C2D))
-            .padding(16.dp)
     ) {
+        Text(
+            text = "New from friends",
+            color = Color.White,
+            style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold)
+        )
 
-        Column {
-            Text(
-                text = "New from friends",
-                color = Color.White,
-                style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold)
-            )
-
-            LazyColumn {
-                items(friendsReviews) { review ->
-                    ReviewItem(review)
-                }
+        LazyColumn {
+            items(friendsReviews) { review ->
+                ReviewItem(review)
             }
         }
 
@@ -60,6 +56,7 @@ fun ReviewsScreen(
             color = Color.White,
             style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold)
         )
+
         LazyColumn {
             items(popularReviews) { review ->
                 ReviewItem(review)
@@ -67,7 +64,6 @@ fun ReviewsScreen(
         }
     }
 }
-
 
 
 @Preview(

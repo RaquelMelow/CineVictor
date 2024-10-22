@@ -3,10 +3,12 @@ package com.example.cinevictor.presentation.features.popular
 import FilmsScreen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.automirrored.outlined.List
@@ -49,12 +51,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cinevictor.model.NavigationItems
 import com.example.cinevictor.presentation.features.reviews.view.ReviewsScreen
-import com.example.cinevictor.presentation.features.user.PreviewUserItem
 import kotlinx.coroutines.launch
 
 
@@ -86,19 +89,21 @@ fun CineVictorNavigationDrawer(
                 drawerContainerColor = Color(0xFF727272),
                 drawerShape = RectangleShape,
                 drawerContentColor = Color.White
-            ){
+            ) {
 
-                PreviewUserItem()
 
                 Spacer(modifier = Modifier.height(16.dp))
+
                 items.forEachIndexed { index, item ->
                     NavigationDrawerItem(
                         label = { Text(text = item.title, color = Color.White) },
-                        icon = { Icon(
-                            imageVector = item.selectedIcon,
-                            contentDescription = null,
-                            tint = Color.White)
-                       },
+                        icon = {
+                            Icon(
+                                imageVector = item.selectedIcon,
+                                contentDescription = null,
+                                tint = Color.White
+                            )
+                        },
                         selected = index == selectedItemIndex,
                         onClick = {
                             selectedItemIndex = index
@@ -122,10 +127,13 @@ fun CineVictorNavigationDrawer(
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = Color(0xFF727272)
                     ),
-                    title = { Text(text = "Popular",
-                        color = Color.White,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold)
+                    title = {
+                        Text(
+                            text = "Popular",
+                            color = Color.White,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
                     },
                     navigationIcon = {
                         IconButton(onClick = {
@@ -133,28 +141,24 @@ fun CineVictorNavigationDrawer(
                                 if (drawerState.isClosed) drawerState.open()
                             }
                         }) {
-                            Icon(imageVector = Icons.Default.Menu,
+                            Icon(
+                                imageVector = Icons.Default.Menu,
                                 contentDescription = "Menu",
-                                tint = Color.White)
+                                tint = Color.White
+                            )
                         }
                     }
                 )
-            },
-            modifier = Modifier
-                .fillMaxSize()
+            }
         ) { innerPadding ->
             var selectedTab by remember { mutableIntStateOf(0) }
 
             Column(
-                modifier = Modifier
-                    .padding(innerPadding)
-                    .fillMaxSize()
+                modifier = Modifier.padding(innerPadding)
             ) {
                 TabRow(
                     selectedTabIndex = selectedTab,
                     containerColor = Color(0xFF727272),
-                    modifier = Modifier
-                        .fillMaxWidth(),
                     indicator = { tabPositions ->
                         SecondaryIndicator(
                             modifier = Modifier.tabIndicatorOffset(tabPositions[selectedTab]),
@@ -164,11 +168,16 @@ fun CineVictorNavigationDrawer(
                 ) {
                     tabs.forEachIndexed { index, tabName ->
                         Tab(
+                            modifier = Modifier.width(100.dp),
                             selected = selectedTab == index,
                             onClick = { selectedTab = index },
                             text = {
                                 Text(
+                                    modifier = Modifier.padding(horizontal = 2.dp),
+                                    maxLines = 2,
+                                    overflow = TextOverflow.Ellipsis,
                                     text = tabName,
+                                    textAlign = TextAlign.Center,
                                     color = Color.White,
                                     fontWeight = if (selectedTab == index) FontWeight.Bold else FontWeight.Normal
                                 )
