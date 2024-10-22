@@ -1,4 +1,4 @@
-package com.example.cinevictor.presentation.features.reviews.model
+package com.example.cinevictor.presentation.features.popular.reviews.model
 
 import com.example.cinevictor.model.Movie
 import com.example.cinevictor.model.User

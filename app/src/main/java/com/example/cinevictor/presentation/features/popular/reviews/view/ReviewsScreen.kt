@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -20,40 +19,35 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.cinevictor.data.repository.ReviewRepository
-import com.example.cinevictor.presentation.features.reviews.viewModel.ReviewsViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.cinevictor.presentation.features.popular.reviews.view.ReviewItem
+import com.example.cinevictor.presentation.features.popular.reviews.viewModel.ReviewsViewModel
 import com.example.cinevictor.presentation.ui.theme.CineVictorTheme
 
 
 @Composable
-fun ReviewsScreen(
-    viewModel: ReviewsViewModel,
-    modifier: Modifier = Modifier,
-) {
+fun ReviewsScreen() {
+
+    val viewModel: ReviewsViewModel = viewModel<ReviewsViewModel>()
+
     val friendsReviews by viewModel.friendsReviews.collectAsState()
     val popularReviews by viewModel.popularReviews.collectAsState()
 
-    LaunchedEffect(Unit) {
-        viewModel.loadReviews()
-    }
 
-    Box(
-        modifier = modifier
+    Column(
+        Modifier
+            .fillMaxSize()
             .background(Color(0xFF1A1C2D))
-            .padding(16.dp)
     ) {
+        Text(
+            text = "New from friends",
+            color = Color.White,
+            style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold)
+        )
 
-        Column {
-            Text(
-                text = "New from friends",
-                color = Color.White,
-                style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold)
-            )
-
-            LazyColumn {
-                items(friendsReviews) { review ->
-                    ReviewItem(review)
-                }
+        LazyColumn {
+            items(friendsReviews) { review ->
+                ReviewItem(review)
             }
         }
 
@@ -62,6 +56,7 @@ fun ReviewsScreen(
             color = Color.White,
             style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold)
         )
+
         LazyColumn {
             items(popularReviews) { review ->
                 ReviewItem(review)
@@ -69,7 +64,6 @@ fun ReviewsScreen(
         }
     }
 }
-
 
 
 @Preview(
@@ -82,7 +76,7 @@ fun ReviewsScreen(
 fun PreviewReviewsScreen() {
     CineVictorTheme {
         Surface(Modifier.fillMaxSize()) {
-            ReviewsScreen(viewModel = ReviewsViewModel(ReviewRepository()))
+            ReviewsScreen()
         }
     }
 }

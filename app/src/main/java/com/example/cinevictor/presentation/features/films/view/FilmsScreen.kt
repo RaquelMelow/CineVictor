@@ -1,5 +1,3 @@
-package com.example.cinevictor.presentation.features.films.view
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -40,22 +38,22 @@ fun FilmsScreen(modifier: Modifier = Modifier) {
     val newForFriend by viewModel.newForFriend.collectAsState(initial = emptyList())
     val popularWithFriend by viewModel.popularWithFriend.collectAsState(initial = emptyList())
 
-        LazyColumn(
-            modifier
-                .fillMaxSize()
-                .background(Color.Black)
-        ) {
-            items(popularOfTheWeek ) { movie ->
-                MovieItem(movie)
-            }
-            items(newForFriend) { movie ->
-                MovieItem(movie)
-            }
-            items(popularWithFriend) { movie ->
-                MovieItem(movie)
-            }
-
+    LazyColumn(
+        modifier
+            .fillMaxSize()
+            .background(Color.Black)
+    ) {
+        items(popularOfTheWeek) { movie ->
+            MovieItem(movie)
         }
+        items(newForFriend) { movie ->
+            MovieItem(movie)
+        }
+        items(popularWithFriend) { movie ->
+            MovieItem(movie)
+        }
+
+    }
 }
 
 @Composable
@@ -66,11 +64,11 @@ fun MovieItem(data: MovieData) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             fontSize = 20.sp,
-            fontWeight = FontWeight.Bold ,
+            fontWeight = FontWeight.Bold,
             text = data.rowTitle,
             color = Color.White,
 
-        )
+            )
 
         LazyRow {
             items(data.posters) { resourceId ->
