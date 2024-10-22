@@ -6,13 +6,19 @@ import com.example.cinevictor.presentation.features.popular.reviews.model.Review
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class ReviewsViewModel(private val reviewRepository: ReviewRepository) : ViewModel() {
+class ReviewsViewModel : ViewModel() {
+
+    private val reviewRepository: ReviewRepository = ReviewRepository()
 
     private val _friendsReviews = MutableStateFlow<List<ReviewData>>(emptyList())
     val friendsReviews: StateFlow<List<ReviewData>> get() = _friendsReviews
 
     private val _popularReviews = MutableStateFlow<List<ReviewData>>(emptyList())
     val popularReviews: StateFlow<List<ReviewData>> get() = _popularReviews
+
+    init {
+        loadReviews()
+    }
 
     fun loadReviews() {
         _friendsReviews.value = reviewRepository.getFriendsReview()
