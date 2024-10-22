@@ -1,5 +1,6 @@
 package com.example.cinevictor.presentation.features.popular
 
+import FilmsScreen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -52,8 +53,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cinevictor.model.NavigationItems
-import com.example.cinevictor.presentation.features.popular.films.Films
-import com.example.cinevictor.presentation.features.popular.reviews.view.ReviewsScreen
+import com.example.cinevictor.presentation.features.reviews.view.ReviewsScreen
 import com.example.cinevictor.presentation.features.user.PreviewUserItem
 import kotlinx.coroutines.launch
 
@@ -178,7 +178,7 @@ fun CineVictorNavigationDrawer(
                 }
 
                 when (selectedTab) {
-                    0 -> Films()
+                    0 -> FilmsScreen()
                     1 -> ReviewsScreen()
 
                 }
