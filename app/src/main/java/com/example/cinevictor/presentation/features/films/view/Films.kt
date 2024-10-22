@@ -1,6 +1,5 @@
-package com.example.cinevictor
+package com.example.cinevictor.presentation.features.films.view
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -16,6 +15,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -26,48 +27,23 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
-data class MovieData(
-    val rowTitle: String,
-    @DrawableRes val posters: List<Int>
-)
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.cinevictor.presentation.features.films.model.MovieData
+import com.example.cinevictor.presentation.features.films.viewmodel.MoviesViewModel
 
 @Composable
 fun Films(modifier: Modifier = Modifier) {
 
-    val popularOfTheWeek = listOf<MovieData>(
-        MovieData(
-            "Popular of the week",
-            listOf(R.drawable.torrente,
-                R.drawable.eljoker,
-                R.drawable.avatar,
-                R.drawable.bleraner,
-                R.drawable.pulpfiction)
-        ),
-    )
-    val newForFriend = listOf<MovieData>(
-        MovieData(
-                "New for friend",
-            listOf(R.drawable.avatar,
-                R.drawable.eljoker,
-                R.drawable.avatar,
-                R.drawable.bleraner,
-                R.drawable.pulpfiction)
-        ),
-        )
-    val popularWithFriend = listOf<MovieData>(
-        MovieData(
-            "Popular whit friend",
-            listOf(R.drawable.torrente,
-                R.drawable.eljoker,
-                R.drawable.avatar,
-                R.drawable.bleraner,
-                R.drawable.pulpfiction)
-        )
-    )
-        LazyColumn(modifier
-            .fillMaxSize()
-            .background(Color.Black)
+    val viewModel: MoviesViewModel = viewModel<MoviesViewModel>()
+
+    val popularOfTheWeek by viewModel.popularOfTheWeek.collectAsState(initial = emptyList())
+    val newForFriend by viewModel.newForFriend.collectAsState(initial = emptyList())
+    val popularWithFriend by viewModel.popularWithFriend.collectAsState(initial = emptyList())
+
+        LazyColumn(
+            modifier
+                .fillMaxSize()
+                .background(Color.Black)
         ) {
             items(popularOfTheWeek ) { movie ->
                 MovieItem(movie)
@@ -85,7 +61,7 @@ fun Films(modifier: Modifier = Modifier) {
 @Composable
 fun MovieItem(data: MovieData) {
 
-    Column() {
+    Column {
 
         Text(
             modifier = Modifier.fillMaxWidth(),
@@ -105,9 +81,11 @@ fun MovieItem(data: MovieData) {
                     modifier = Modifier
                         .width(100.dp)
                         .height(200.dp)
-                        .padding(top = 25.dp,
+                        .padding(
+                            top = 25.dp,
                             bottom = 25.dp,
-                            end = 5.dp)
+                            end = 5.dp
+                        )
                         .clip(RoundedCornerShape(10.dp))
                 )
             }
