@@ -11,8 +11,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -29,9 +29,9 @@ import com.example.cinevictor.presentation.ui.theme.CineVictorTheme
 fun ReviewsScreen(
     viewModel: ReviewsViewModel,
     modifier: Modifier = Modifier,
-)  {
-    val friendsReviews by viewModel.friendsReviews.observeAsState()
-    val popularReviews by viewModel.popularReviews.observeAsState()
+) {
+    val friendsReviews by viewModel.friendsReviews.collectAsState()
+    val popularReviews by viewModel.popularReviews.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.loadReviews()
@@ -51,28 +51,25 @@ fun ReviewsScreen(
             )
 
             LazyColumn {
-                friendsReviews?.let {
-                    items(it) { review ->
-                        ReviewItem(review)
-                    }
+                items(friendsReviews) { review ->
+                    ReviewItem(review)
                 }
             }
+        }
 
-            Text(
-                text = "Popular This Week",
-                color = Color.White,
-                style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold)
-            )
-            LazyColumn {
-                popularReviews?.let {
-                    items(it) { review ->
-                        ReviewItem(review)
-                    }
-                }
+        Text(
+            text = "Popular This Week",
+            color = Color.White,
+            style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold)
+        )
+        LazyColumn {
+            items(popularReviews) { review ->
+                ReviewItem(review)
             }
         }
     }
 }
+
 
 
 @Preview(
