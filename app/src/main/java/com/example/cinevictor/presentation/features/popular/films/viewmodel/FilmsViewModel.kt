@@ -1,9 +1,9 @@
-package com.example.cinevictor.presentation.features.films.viewmodel
+package com.example.cinevictor.presentation.features.popular.films.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinevictor.R
-import com.example.cinevictor.presentation.features.films.model.MovieData
+import com.example.cinevictor.presentation.features.popular.films.model.MovieData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
