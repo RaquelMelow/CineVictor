@@ -26,8 +26,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.cinevictor.presentation.features.films.model.MovieData
-import com.example.cinevictor.presentation.features.films.viewmodel.FilmsViewModel
+import com.example.cinevictor.presentation.features.popular.films.model.MovieData
+import com.example.cinevictor.presentation.features.popular.films.viewmodel.FilmsViewModel
 
 @Composable
 fun FilmsScreen(modifier: Modifier = Modifier) {
