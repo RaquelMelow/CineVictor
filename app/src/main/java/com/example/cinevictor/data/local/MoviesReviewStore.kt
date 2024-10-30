@@ -1,60 +1,60 @@
 package com.example.cinevictor.data.local
 
 import com.example.cinevictor.R
-import com.example.cinevictor.model.Movie
+import com.example.cinevictor.model.MovieLocal
 
 object MoviesReviewStore {
     val popularThisWeek = listOf(
-        Movie(
+        MovieLocal(
             title = "Challenger",
             year = 2024,
             image = R.drawable.challenger
         ),
-        Movie(
+        MovieLocal(
             title = "Dune: Part II",
             year = 2023,
             image = R.drawable.dune2
         ),
-        Movie(
+        MovieLocal(
             title = "El Hoyo 2",
             year = 2024,
             image = R.drawable.elhoyo2
         ),
-        Movie(
+        MovieLocal(
             title = "Sherk",
             year = 2001,
             image = R.drawable.sherk
         ),
-        Movie(
+        MovieLocal(
             title = "Midsommar",
             year = 2019,
             image = R.drawable.midsommar
         )
     )
     val newFromFriends = listOf(
-        Movie(
+        MovieLocal(
             title = "Smile 2",
             year = 2024,
             image = R.drawable.smile2
         ),
-        Movie(
+        MovieLocal(
             title = "The Ring",
             year = 1999,
             image = R.drawable.thering
         ),
-        Movie(
+        MovieLocal(
             title = "As Bestas",
             year = 2022,
             image = R.drawable.asbestas
         ),
-        Movie(
+        MovieLocal(
             title = "El Orfanato",
             year = 2007,
             image = R.drawable.elorfanato
         )
     )
     val popularWithFriends = listOf(
-        Movie(
+        MovieLocal(
             title = "Alien: Romulus",
             year = 2024,
             image = R.drawable.alienromulus
