@@ -56,7 +56,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.cinevictor.model.NavigationItems
+import com.example.cinevictor.domain.model.NavigationItems
 import com.example.cinevictor.presentation.features.reviews.view.ReviewsScreen
 import kotlinx.coroutines.launch
 

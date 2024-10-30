@@ -1,7 +1,7 @@
 package com.example.cinevictor.presentation.features.popular.reviews.model
 
-import com.example.cinevictor.model.MovieLocal
-import com.example.cinevictor.model.User
+import com.example.cinevictor.domain.model.MovieLocal
+import com.example.cinevictor.domain.model.User
 
 data class ReviewData(
     val id: String,

@@ -1,4 +1,4 @@
-package com.example.cinevictor.model
+package com.example.cinevictor.domain.model
 
 data class Movie(
     val movieId: Int,

@@ -1,3 +1,5 @@
+package com.example.cinevictor.data.network
+
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
