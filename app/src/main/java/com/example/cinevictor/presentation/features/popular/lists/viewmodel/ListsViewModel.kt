@@ -1,16 +1,13 @@
 package com.example.cinevictor.presentation.features.popular.lists.viewmodel
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.cinevictor.R
 import com.example.cinevictor.presentation.features.popular.lists.model.ListsItemData
 import com.example.cinevictor.presentation.features.popular.lists.model.imageList1
 import com.example.cinevictor.presentation.features.popular.lists.model.imageList2
 import com.example.cinevictor.presentation.features.popular.lists.model.imageList3
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 
 class ListsViewModel : ViewModel() {
 
