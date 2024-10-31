@@ -3,6 +3,8 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -56,14 +58,19 @@ android {
 }
 
 dependencies {
+    //implementacion de coil
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
     // Retrofit
     implementation(libs.retrofit)
-    implementation(libs.converter.moshi)
+
     implementation(libs.retrofit2.kotlin.coroutines.adapter)
 
 
     // Moshi
     implementation(libs.moshi.kotlin)
+    implementation (libs.moshi.converter)
+    ksp(libs.moshi.codegen)
 
     // Kotlin Coroutines
     implementation(libs.kotlinx.coroutines.core)
