@@ -2,7 +2,7 @@ package com.example.cinevictor.data.repository
 
 import com.example.cinevictor.R
 import com.example.cinevictor.data.local.MoviesReviewStore
-import com.example.cinevictor.model.User
+import com.example.cinevictor.domain.model.User
 import com.example.cinevictor.presentation.features.popular.reviews.model.ReviewData
 
 class ReviewRepository {

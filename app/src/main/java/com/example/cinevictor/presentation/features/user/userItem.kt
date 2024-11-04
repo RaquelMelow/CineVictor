@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cinevictor.R
-import com.example.cinevictor.model.User
+import com.example.cinevictor.domain.model.User
 
 @Composable
 fun UserItem(user: User) {
