@@ -1,8 +1,8 @@
-package com.example.cinevictor.model
+package com.example.cinevictor.domain.model
 
 import androidx.annotation.DrawableRes
 
-data class Movie(
+data class MovieLocal(
     val title: String,
     val year: Int,
     @DrawableRes val image: Int

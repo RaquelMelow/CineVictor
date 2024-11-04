@@ -1,0 +1,3 @@
+package com.example.cinevictor.data.local
+
+val api_key = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMTljMmJjMDIyMTdkYmFjZjg3MjM0MWYzYTY0M2M3MyIsIm5iZiI6MTcyOTg4NDA1MS4zOTE4NzcsInN1YiI6IjY3MWJkMWNlOWZmNjgxZDllMGE0MGU1MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.z0PPx7YJbhe-j-_GYSBChOLPTPkIgp9PiOyYvy1xIrA"

@@ -1,7 +1,7 @@
 package com.example.cinevictor.data.local
 
 import com.example.cinevictor.R
-import com.example.cinevictor.model.User
+import com.example.cinevictor.domain.model.User
 
 
 val users = listOf(
