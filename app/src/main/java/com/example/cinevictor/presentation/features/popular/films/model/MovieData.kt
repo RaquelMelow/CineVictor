@@ -1,4 +1,4 @@
-package com.example.cinevictor.presentation.features.films.model
+package com.example.cinevictor.presentation.features.popular.films.model
 
 import androidx.annotation.DrawableRes
 
