@@ -155,7 +155,7 @@ fun MovieRowItem(imageRes: Int) {
     }
 }
 
-@Preview(
+/*@Preview(
     name = "Pixel 5",
     device = "spec:shape=Normal,width=1080,height=2400,unit=px,dpi=480",
 )
@@ -164,7 +164,7 @@ fun PreviewListScreen() {
     Surface {
         ListsScreen()
     }
-}
+}*/
 
 
 
