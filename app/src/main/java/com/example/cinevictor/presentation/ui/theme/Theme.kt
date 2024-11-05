@@ -1,6 +1,5 @@
 package com.example.cinevictor.presentation.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -54,5 +53,22 @@ fun CineVictorTheme(
         colorScheme = colorScheme,
         typography = Typography,
         content = content
+    )
+}
+
+private val TemaNuevo = lightColorScheme(
+    primary = LimeGreen,
+    onSurface = LimeGreen,
+    secondary = CharcoalBlack,
+    background = DarkGray
+)
+
+
+@Composable
+fun CineTemita(content: @Composable () -> Unit){
+    MaterialTheme(
+        colorScheme = TemaNuevo,
+        typography = Typography,
+        content = content,
     )
 }

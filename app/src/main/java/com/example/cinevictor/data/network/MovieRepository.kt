@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 
 class MovieRepository(private val service: MovieService) {
 
-    suspend fun getPopularMovies(page: Int = 1): List<Movie>? {
+    suspend fun getPopularMovies(page: Int): List<Movie>? {
         return withContext(Dispatchers.IO) {
             try {
                 val response = service.getPopularMovies(BuildConfig.API_KEY, page)

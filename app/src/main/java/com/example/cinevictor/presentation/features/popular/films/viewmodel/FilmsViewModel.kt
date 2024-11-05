@@ -15,6 +15,7 @@ class FilmsViewModel : ViewModel() {
     val movieService = RetrofitClient.retrofit.create(MovieService::class.java)
     val repository = MovieRepository(movieService)
 
+    private var currentPage = 1
     private val _popularOfTheWeek = MutableStateFlow<List<Movie>>(emptyList())
     val popularOfTheWeek: StateFlow<List<Movie>> = _popularOfTheWeek
 
@@ -22,12 +23,13 @@ class FilmsViewModel : ViewModel() {
         loadMovies()
     }
 
-    private fun loadMovies() {
+     fun loadMovies() {
         viewModelScope.launch {
-            val response = repository.getPopularMovies()
+            val response = repository.getPopularMovies(currentPage)
 
             response?.let {
-                _popularOfTheWeek.value = response
+                _popularOfTheWeek.value += it
+                currentPage ++
             }
         }
     }
