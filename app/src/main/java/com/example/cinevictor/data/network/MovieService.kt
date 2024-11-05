@@ -1,8 +1,10 @@
 package com.example.cinevictor.data.network
 
 import com.example.cinevictor.data.model.PopularMoviesResponse
+import com.example.cinevictor.data.model.movie.MovieDetailCreditResponse
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 
@@ -20,6 +22,11 @@ interface MovieService {
         @Query("page") page: Int
     ): Response<PopularMoviesResponse>
 
-
+    @GET("movie/{movie_id}/credit")
+    suspend fun getDetailCreditMovie(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String,
+        @Query("append_to_response") appendToResponse: String = "credits"
+    ): Response<MovieDetailCreditResponse>
 
 }
