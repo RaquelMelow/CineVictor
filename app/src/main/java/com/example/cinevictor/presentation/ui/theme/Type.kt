@@ -16,7 +16,22 @@ val Typography = Typography(
         letterSpacing = 0.5.sp,
         color = OffWhite
     ),
-    // Other default text styles to override
+    labelLarge = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        lineHeight = 20.sp,
+        letterSpacing = 0.sp,
+        color = MediumGray
+    ),
+    labelMedium = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Bold,
+        fontSize = 16.sp,
+        lineHeight = 20.sp,
+        letterSpacing = 0.sp,
+        color = MediumGray
+    ),
     titleLarge = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,

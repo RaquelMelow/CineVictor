@@ -89,8 +89,10 @@ data class Cast(
     @Json(name = "cast_id") val castId: Int,
     @Json(name = "character") val character: String,
     @Json(name = "credit_id") val creditId: String,
-    @Json(name = "order") val order: Int
+    @Json(name = "order") val order: Int,
+    @Json(name = "job") val job: String?
 )
+
 
 fun MovieDetailCreditResponse.toDomain(): MovieDetailsCredit {
     return MovieDetailsCredit(
@@ -112,6 +114,8 @@ fun Cast.toDomain(): CastMember {
     return CastMember(
         id = id,
         name = name,
-        character = character
+        character = character,
+        job = job ?: "Unknown",
+        profilePath = "https://image.tmdb.org/t/p/w500$profilePath"
     )
 }
