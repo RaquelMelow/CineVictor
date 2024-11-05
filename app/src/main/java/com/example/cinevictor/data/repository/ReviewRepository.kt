@@ -6,19 +6,6 @@ import com.example.cinevictor.domain.model.User
 import com.example.cinevictor.presentation.features.popular.reviews.model.ReviewData
 
 class ReviewRepository {
-    fun getFriendsReview(): List<ReviewData> {
-        return listOf(
-            ReviewData(
-                id = "1",
-                user = User(id = "u0", name = "Amanda", R.drawable.perfilamanda),
-                movie = MoviesReviewStore.popularWithFriends[0],
-                rating = 4,
-                comment = "Flojita",
-                date = "2024-09-29"
-            )
-        )
-    }
-
     fun getPopularReview(): List<ReviewData> {
         return listOf(
             ReviewData(
@@ -36,7 +23,15 @@ class ReviewRepository {
                 rating = 7,
                 comment = "Muy entretenida",
                 date = "2024-09-28"
-            )
+            ),
+            ReviewData(
+                id = "1",
+                user = User(id = "u0", name = "Amanda", R.drawable.perfilamanda),
+                movie = MoviesReviewStore.popularThisWeek[3],
+                rating = 4,
+                comment = "Flojita",
+                date = "2024-09-29"
+            ),
         )
     }
 }

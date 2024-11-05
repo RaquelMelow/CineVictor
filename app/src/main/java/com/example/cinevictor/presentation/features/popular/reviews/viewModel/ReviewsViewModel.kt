@@ -10,9 +10,6 @@ class ReviewsViewModel : ViewModel() {
 
     private val reviewRepository: ReviewRepository = ReviewRepository()
 
-    private val _friendsReviews = MutableStateFlow<List<ReviewData>>(emptyList())
-    val friendsReviews: StateFlow<List<ReviewData>> get() = _friendsReviews
-
     private val _popularReviews = MutableStateFlow<List<ReviewData>>(emptyList())
     val popularReviews: StateFlow<List<ReviewData>> get() = _popularReviews
 
@@ -21,7 +18,6 @@ class ReviewsViewModel : ViewModel() {
     }
 
     fun loadReviews() {
-        _friendsReviews.value = reviewRepository.getFriendsReview()
         _popularReviews.value = reviewRepository.getPopularReview()
     }
 }
