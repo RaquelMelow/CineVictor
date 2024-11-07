@@ -24,7 +24,7 @@ android {
         }
 
         buildConfigField("String", "API_KEY", gradleLocalProperties(rootDir, providers).getProperty("API_KEY"))
-        
+        buildConfigField("String", "AUTH_TOKEN", gradleLocalProperties(rootDir, providers).getProperty("AUTH_TOKEN"))
     }
 
     buildTypes {
@@ -59,13 +59,11 @@ android {
 
 dependencies {
     //implementacion de coil
-    implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation(libs.coil.compose)
 
     // Retrofit
     implementation(libs.retrofit)
-
     implementation(libs.retrofit2.kotlin.coroutines.adapter)
-
 
     // Moshi
     implementation(libs.moshi.kotlin)
@@ -80,6 +78,14 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
 
+    //KTOR
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.logging)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.serialization)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.ktor.client.auth)
 
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)

@@ -1,4 +1,4 @@
-package com.example.cinevictor.data.network
+package com.example.cinevictor.core.framework.network.retrofit
 
 import com.example.cinevictor.data.model.PopularMoviesResponse
 import retrofit2.Response
