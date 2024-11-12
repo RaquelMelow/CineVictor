@@ -43,12 +43,12 @@ class ListsViewModel : ViewModel() {
                 image = R.drawable.flag
             ),
             ListsItemData(
-                title = "Troperías de Abby",
+                title = "Troperías de Iru",
                 movieImages = imageList2,
                 concept = null,
-                abstract = "Me encanta el olor a gasolina por la mañana. ¡Huele a victoria!",
+                abstract = "Soy un tío de gustos sencillos- Me gusta la dinamita, la pólvora y la gasoliiiiiina!",
                 friend = "Abby",
-                image = R.drawable.abby
+                image = R.drawable.flag
             ),
         )
     }

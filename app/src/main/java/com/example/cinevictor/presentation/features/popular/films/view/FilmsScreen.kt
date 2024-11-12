@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.cinevictor.domain.model.Movie
-import com.example.cinevictor.presentation.features.films.viewmodel.FilmsViewModel
+import com.example.cinevictor.presentation.features.popular.films.viewmodel.FilmsViewModel
 
 
 @Composable
@@ -77,7 +77,7 @@ fun MovieItem(data: Movie) {
             modifier = Modifier.fillMaxWidth(),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            text = data.movieTitle,
+            text = data.title,
             color = Color.White,
 
             )

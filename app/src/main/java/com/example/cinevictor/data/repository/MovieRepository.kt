@@ -1,7 +1,8 @@
-package com.example.cinevictor.data.network
+package com.example.cinevictor.data.repository
 
 import com.example.cinevictor.BuildConfig
 import com.example.cinevictor.data.model.toDomainList
+import com.example.cinevictor.data.network.MovieService
 import com.example.cinevictor.domain.model.Movie
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -21,6 +22,20 @@ class MovieRepository(private val service: MovieService) {
             } catch (e: Exception) {
                 null
             }
+        }
+    }
+
+    suspend fun getUpcomingMovies(page: Int): List<Movie>? {
+        return try {
+            val response = service.getUpcomingMovies(BuildConfig.API_KEY, page)
+
+            if (response.isSuccessful) {
+                response.body()?.results?.toDomainList()
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            null
         }
     }
 }

@@ -54,6 +54,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cinevictor.domain.model.NavigationItems
 import com.example.cinevictor.presentation.features.films.view.FilmsScreen
+import com.example.cinevictor.presentation.features.popular.journal.view.JournalRoute
+import com.example.cinevictor.presentation.features.popular.journal.view.JournalScreen
 import com.example.cinevictor.presentation.features.reviews.view.ReviewsScreen
 import com.example.cinevictor.presentation.features.popular.lists.view.ListsScreen
 import kotlinx.coroutines.launch
@@ -188,6 +190,7 @@ fun CineVictorNavigationDrawer(
                     0 -> FilmsScreen()
                     1 -> ReviewsScreen()
                     2 -> ListsScreen()
+                    3 -> JournalRoute()
                 }
             }
         }
