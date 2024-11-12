@@ -64,61 +64,62 @@ fun JournalScreen(
             contentPadding = PaddingValues(10.dp),
             state = state
         ) {
-            movies?.let { items ->
-                items(items) { movie ->
-                    AsyncImage(
-                        model = movie.posterPath,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp)
-                            .size(200.dp)
-                            .clip(RoundedCornerShape(10.dp)),
-                        contentDescription = null,
-                        alignment = Alignment.Center,
-                        contentScale = ContentScale.Crop,
-                    )
+            items(
+                movies,
+                key = { it.id }
+            ) { movie ->
+                AsyncImage(
+                    model = movie.posterPath,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(200.dp)
+                        .size(200.dp)
+                        .clip(RoundedCornerShape(10.dp)),
+                    contentDescription = null,
+                    alignment = Alignment.Center,
+                    contentScale = ContentScale.Crop,
+                )
 
-                    Text(
-                        text = movie.title,
-                        textAlign = TextAlign.Left,
-                        color = Color.Gray,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 18.sp,
-                        fontStyle = FontStyle.Normal
-                    )
+                Text(
+                    text = movie.title,
+                    textAlign = TextAlign.Left,
+                    color = Color.Gray,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                    fontStyle = FontStyle.Normal
+                )
 
-                    Text(
-                        text = movie.overview,
-                        color = Color.Gray,
-                        fontWeight = FontWeight.Normal,
-                        fontSize = 15.sp,
-                        fontStyle = FontStyle.Normal,
-                        overflow = TextOverflow.Ellipsis,
-                        maxLines = 3,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable(onClick = {
-                                onClick(movie)
-                            })
-                    )
+                Text(
+                    text = movie.overview,
+                    color = Color.Gray,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 15.sp,
+                    fontStyle = FontStyle.Normal,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 3,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable(onClick = {
+                            onClick(movie)
+                        })
+                )
 
-                    Spacer(Modifier.height(15.dp))
+                Spacer(Modifier.height(15.dp))
 
-                }
             }
         }
+    }
 
-        selectedMovie?.let {
-            AlertDialog(
-                onDismissRequest = { onDismiss() },
-                title = { Text(text = it.title) },
-                text = { Text(text = it.overview) },
-                confirmButton = {
-                    Button(
-                        onClick = { onDismiss() })
-                    { Text("Close") }
-                })
-        }
+    selectedMovie?.let {
+        AlertDialog(
+            onDismissRequest = { onDismiss() },
+            title = { Text(text = it.title) },
+            text = { Text(text = it.overview) },
+            confirmButton = {
+                Button(
+                    onClick = { onDismiss() })
+                { Text("Close") }
+            })
     }
 }
 

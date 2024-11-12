@@ -11,9 +11,9 @@ import com.example.cinevictor.domain.model.Movie
 import com.example.cinevictor.presentation.features.popular.journal.viewmodel.JournalViewModel
 
 @Composable
-fun JournalRoute() {
-    val viewModel = JournalViewModel()
-
+fun JournalRoute(
+    viewModel: JournalViewModel = JournalViewModel()
+) {
     val movies by viewModel.sceneListsItems.collectAsState()
     var selectedMovie by remember { mutableStateOf<Movie?>(null) }
     val state = rememberLazyListState()
