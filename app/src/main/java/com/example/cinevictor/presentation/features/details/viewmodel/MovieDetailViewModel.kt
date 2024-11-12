@@ -1,4 +1,4 @@
-package com.example.cinevictor.presentation.features.popular.movieDetails.viewmodel
+package com.example.cinevictor.presentation.features.details.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

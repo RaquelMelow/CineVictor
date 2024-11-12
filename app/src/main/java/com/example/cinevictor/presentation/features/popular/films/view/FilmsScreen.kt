@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.cinevictor.domain.model.Movie
-import com.example.cinevictor.presentation.features.films.viewmodel.FilmsViewModel
+import com.example.cinevictor.presentation.features.popular.films.viewmodel.FilmsViewModel
 
 @Composable
 fun FilmsScreen(modifier: Modifier = Modifier) {

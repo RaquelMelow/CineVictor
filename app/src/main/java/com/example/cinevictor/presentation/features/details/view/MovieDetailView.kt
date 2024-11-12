@@ -1,4 +1,4 @@
-package com.example.cinevictor.presentation.features.popular.movieDetails.view
+package com.example.cinevictor.presentation.features.details.view
 
 import android.annotation.SuppressLint
 import android.os.Build
