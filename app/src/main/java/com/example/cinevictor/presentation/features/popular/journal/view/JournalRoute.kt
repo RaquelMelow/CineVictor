@@ -12,7 +12,7 @@ import com.example.cinevictor.presentation.features.popular.journal.viewmodel.Jo
 
 @Composable
 fun JournalRoute(
-    viewModel: JournalViewModel = JournalViewModel()
+    viewModel: JournalViewModel
 ) {
     val movies by viewModel.sceneListsItems.collectAsState()
     var selectedMovie by remember { mutableStateOf<Movie?>(null) }
