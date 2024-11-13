@@ -2,10 +2,11 @@ package com.example.cinevictor.presentation.features.popular.films.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinevictor.data.network.MovieRepository
-import com.example.cinevictor.data.network.MovieService
-import com.example.cinevictor.data.network.RetrofitClient
+import com.example.cinevictor.core.framework.network.retrofit.MovieService
+import com.example.cinevictor.core.framework.network.retrofit.RetrofitClient
+import com.example.cinevictor.data.repository.MovieRepository
 import com.example.cinevictor.domain.model.Movie
+import com.example.cinevictor.domain.util.ApiResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -24,10 +25,14 @@ class FilmsViewModel : ViewModel() {
 
     private fun loadMovies() {
         viewModelScope.launch {
-            val response = repository.getPopularMovies()
+            when(val result = repository.getPopularMovies()) {
+                is ApiResult.Error -> {
 
-            response?.let {
-                _popularOfTheWeek.value = response
+                }
+
+                is ApiResult.Success -> {
+                    _popularOfTheWeek.value = result.data
+                }
             }
         }
     }

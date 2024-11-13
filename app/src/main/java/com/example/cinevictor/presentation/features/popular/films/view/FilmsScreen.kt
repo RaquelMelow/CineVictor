@@ -1,3 +1,5 @@
+package com.example.cinevictor.presentation.features.popular.films.view
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize

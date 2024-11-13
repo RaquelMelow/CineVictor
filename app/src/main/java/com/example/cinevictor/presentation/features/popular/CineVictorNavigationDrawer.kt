@@ -1,6 +1,5 @@
 package com.example.cinevictor.presentation.features.popular
 
-import FilmsScreen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -54,8 +53,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cinevictor.domain.model.NavigationItems
-import com.example.cinevictor.presentation.features.reviews.view.ReviewsScreen
+import com.example.cinevictor.presentation.features.popular.films.view.FilmsScreen
 import com.example.cinevictor.presentation.features.popular.lists.view.ListsScreen
+import com.example.cinevictor.presentation.features.reviews.view.ReviewsScreen
 import kotlinx.coroutines.launch
 
 

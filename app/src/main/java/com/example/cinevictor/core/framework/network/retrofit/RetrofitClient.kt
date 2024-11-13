@@ -1,4 +1,4 @@
-package com.example.cinevictor.data.network
+package com.example.cinevictor.core.framework.network.retrofit
 
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient

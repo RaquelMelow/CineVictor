@@ -24,7 +24,7 @@ android {
         }
 
         buildConfigField("String", "API_KEY", gradleLocalProperties(rootDir, providers).getProperty("API_KEY"))
-        
+        buildConfigField("String", "AUTH_TOKEN", gradleLocalProperties(rootDir, providers).getProperty("AUTH_TOKEN"))
     }
 
     buildTypes {
@@ -58,6 +58,7 @@ android {
 }
 
 dependencies {
+    //implementacion de coil
     implementation(libs.coil.compose)
 
     // Retrofit
