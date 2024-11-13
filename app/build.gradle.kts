@@ -63,7 +63,9 @@ dependencies {
 
     // Retrofit
     implementation(libs.retrofit)
+
     implementation(libs.retrofit2.kotlin.coroutines.adapter)
+
 
     // Moshi
     implementation(libs.moshi.kotlin)
@@ -78,14 +80,6 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
 
-    //KTOR
-    implementation(libs.ktor.client.core)
-    implementation(libs.ktor.client.logging)
-    implementation(libs.ktor.client.content.negotiation)
-    implementation(libs.ktor.client.cio)
-    implementation(libs.ktor.client.serialization)
-    implementation(libs.ktor.serialization.kotlinx.json)
-    implementation(libs.ktor.client.auth)
 
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)

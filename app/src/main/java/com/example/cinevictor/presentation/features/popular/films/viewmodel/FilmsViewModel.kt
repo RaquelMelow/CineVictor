@@ -1,4 +1,4 @@
-package com.example.cinevictor.presentation.features.films.viewmodel
+package com.example.cinevictor.presentation.features.popular.films.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,8 +13,8 @@ import kotlinx.coroutines.launch
 
 class FilmsViewModel : ViewModel() {
 
-    val movieService = RetrofitClient.retrofit.create(MovieService::class.java)
-    val repository = MovieRepository(movieService)
+    private val movieService = RetrofitClient.retrofit.create(MovieService::class.java)
+    private val repository = MovieRepository(movieService)
 
     private val _popularOfTheWeek = MutableStateFlow<List<Movie>>(emptyList())
     val popularOfTheWeek: StateFlow<List<Movie>> = _popularOfTheWeek

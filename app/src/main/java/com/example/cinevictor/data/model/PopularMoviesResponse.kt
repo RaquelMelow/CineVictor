@@ -21,7 +21,7 @@ fun MovieResponse.toDomain(): Movie {
     return Movie(
         movieId = id,
         movieTitle = title,
-        posterPath = posterPath
+        posterPath = "https://image.tmdb.org/t/p/w500$posterPath"
     )
 }
 
