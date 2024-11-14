@@ -40,9 +40,10 @@ class JournalViewModel : ViewModel() {
 
             val movies: List<Movie>? = repository.getUpcomingMovies(1)
 
-            _listsItems.value = movies
-
-            _isLoading.value = false
+            movies?.let {
+                _listsItems.value = movies
+                _isLoading.value = false
+            }
         }
     }
 }

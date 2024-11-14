@@ -1,5 +1,7 @@
 package com.example.cinevictor.presentation.features.popular.journal.view
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
@@ -8,6 +10,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import com.example.cinevictor.domain.model.Movie
 import com.example.cinevictor.presentation.features.popular.journal.viewmodel.JournalViewModel
 import com.example.cinevictor.presentation.features.popular.journal.viewmodel.UiState
@@ -22,7 +26,12 @@ fun JournalRoute(
     val state = rememberLazyListState()
 
     if(isLoading) {
-        CircularProgressIndicator()
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            CircularProgressIndicator()
+        }
     }
 
     uiState?.let {
@@ -41,8 +50,12 @@ fun JournalRoute(
 
 
 //    when(val uiState = uiState) {
-//        is UiState.Loading -> {
+//        is UiState.Loading -> {Box(
+//            contentAlignment = Alignment.Center,
+//            modifier = Modifier.fillMaxSize()
+//        ) {
 //            CircularProgressIndicator()
+//          }
 //        }
 //
 //        is UiState.Success -> {

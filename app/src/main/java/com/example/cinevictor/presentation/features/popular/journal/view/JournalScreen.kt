@@ -1,8 +1,12 @@
 package com.example.cinevictor.presentation.features.popular.journal.view
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -18,9 +22,12 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -53,6 +61,23 @@ fun JournalScreen(
     onClick: (movie: Movie) -> Unit,
     onDismiss: () -> Unit
 ) {
+    /*    var isLoading by remember { mutableStateOf(true) }
+
+    LaunchedEffect(Unit) {
+        // Simula un tiempo de carga
+        kotlinx.coroutines.delay(2000)
+        isLoading = false
+    }
+
+    if (isLoading) {
+        // Mostrar indicador de carga
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            CircularProgressIndicator()
+        }
+    } else {*/
 
     Column(
         Modifier
@@ -111,17 +136,30 @@ fun JournalScreen(
     }
 
     selectedMovie?.let {
-        AlertDialog(
-            onDismissRequest = { onDismiss() },
-            title = { Text(text = it.title) },
-            text = { Text(text = it.overview) },
-            confirmButton = {
-                Button(
-                    onClick = { onDismiss() })
-                { Text("Close") }
-            })
-    }
+            // Ventana modal, se pica sobre el texto que acaba en puntos suspensivos y
+            //  se abre una ventana que expone el texto/sinpsis completo
+            AlertDialog(
+                onDismissRequest = { onDismiss() },
+                title = { Text(text = it.title, color = Color.White) },
+                text = { Text(text = it.overview, color = Color.White) },
+                confirmButton = {
+                    Button(
+                        onClick = { onDismiss() },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.Black // Color de fondo del botón
+                        ),
+                        shape = RoundedCornerShape(4.dp), // Para dar forma al botón
+                        border = BorderStroke(1.dp, Color.White) // Para añadir el borde blanco/rojo
+                                            )
+                    { Text("Close", color = Color.White) }
+                },
+                containerColor = Color.Black, // Color de fondo del dialogo
+                shape = RoundedCornerShape(8.dp),
+
+            )
+        }
 }
+//}
 
 
 @PreviewScreenSizes
