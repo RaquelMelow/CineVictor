@@ -1,4 +1,4 @@
-package com.example.cinevictor.presentation.features.popular.films.view
+package com.example.cinevictor.presentation.features.films.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -29,6 +29,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.cinevictor.domain.model.Movie
 import com.example.cinevictor.presentation.features.popular.films.viewmodel.FilmsViewModel
+
 
 @Composable
 fun FilmsScreen(modifier: Modifier = Modifier) {
@@ -77,7 +78,7 @@ fun MovieItem(data: Movie) {
             modifier = Modifier.fillMaxWidth(),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            text = data.movieTitle,
+            text = data.title,
             color = Color.White,
 
             )
