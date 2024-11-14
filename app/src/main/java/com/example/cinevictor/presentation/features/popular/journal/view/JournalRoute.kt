@@ -14,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.example.cinevictor.domain.model.Movie
 import com.example.cinevictor.presentation.features.popular.journal.viewmodel.JournalViewModel
-import com.example.cinevictor.presentation.features.popular.journal.viewmodel.UiState
 
 @Composable
 fun JournalRoute(

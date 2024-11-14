@@ -3,25 +3,13 @@ package com.example.cinevictor.presentation.features.popular.journal.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cinevictor.core.framework.network.retrofit.RetrofitClient
 import com.example.cinevictor.data.network.MovieService
-import com.example.cinevictor.data.network.RetrofitClient
 import com.example.cinevictor.data.repository.MovieRepository
 import com.example.cinevictor.domain.model.Movie
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.lang.Thread.State
-
-sealed class UiState {
-    data object Loading : UiState()
-    data class Success(val movies: List<Movie>?) : UiState()
-}
-
-data class UiState2(
-    val isLoading: Boolean = false,
-    val movies: List<Movie>? = null
-)
 
 class JournalViewModel : ViewModel() {
 
