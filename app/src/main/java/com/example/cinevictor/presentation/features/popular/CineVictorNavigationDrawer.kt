@@ -58,7 +58,9 @@ import com.example.cinevictor.presentation.features.popular.journal.view.Journal
 import com.example.cinevictor.presentation.features.popular.journal.view.JournalScreen
 import com.example.cinevictor.presentation.features.popular.journal.viewmodel.JournalViewModel
 import com.example.cinevictor.presentation.features.reviews.view.ReviewsScreen
+import com.example.cinevictor.presentation.features.popular.films.view.FilmsScreen
 import com.example.cinevictor.presentation.features.popular.lists.view.ListsScreen
+import com.example.cinevictor.presentation.features.reviews.view.ReviewsScreen
 import kotlinx.coroutines.launch
 
 

@@ -26,4 +26,3 @@ fun MovieResponse.toDomain(): Movie {
     )
 }
 
-
