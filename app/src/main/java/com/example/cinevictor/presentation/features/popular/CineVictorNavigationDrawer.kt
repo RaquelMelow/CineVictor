@@ -49,7 +49,6 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cinevictor.domain.model.NavigationItems
@@ -60,10 +59,9 @@ import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview
 @Composable
 fun CineVictorNavigationDrawer(
-    navigateToDetail: (movieId: Int) -> Unit = {}
+    navigateToDetail: (id: Int) -> Unit
 ) {
     val items = listOf(
         NavigationItems("Popular", Icons.Filled.Menu, Icons.Outlined.Menu),
@@ -185,7 +183,7 @@ fun CineVictorNavigationDrawer(
                 }
 
                 when (selectedTab) {
-                    0 -> FilmsScreen()
+                    0 -> FilmsScreen(navigateToDetail = navigateToDetail)
                     1 -> ReviewsScreen()
                     2 -> ListsScreen()
                 }

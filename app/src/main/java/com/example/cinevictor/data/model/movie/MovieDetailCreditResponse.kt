@@ -93,6 +93,9 @@ data class Cast(
     @Json(name = "job") val job: String?
 )
 
+fun List<Cast>?.getDirectorName(): String? {
+    return this?.find { it.job.equals("Director", ignoreCase = true) }?.job
+}
 
 fun MovieDetailCreditResponse.toDomain(): MovieDetailsCredit {
     return MovieDetailsCredit(
@@ -106,7 +109,8 @@ fun MovieDetailCreditResponse.toDomain(): MovieDetailsCredit {
         voteCount = voteCount,
         runtime = runtime,
         genres = genres.map { it.name },
-        cast = credits?.cast?.map { it.toDomain() } ?: emptyList()
+        cast = credits?.cast?.map { it.toDomain() } ?: emptyList(),
+        directorName = credits?.cast.getDirectorName()
     )
 }
 
@@ -119,3 +123,4 @@ fun Cast.toDomain(): CastMember {
         profilePath = "https://image.tmdb.org/t/p/w500$profilePath"
     )
 }
+

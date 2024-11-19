@@ -1,6 +1,7 @@
 package com.example.cinevictor.presentation.features.popular.films.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,7 +32,10 @@ import com.example.cinevictor.domain.model.Movie
 import com.example.cinevictor.presentation.features.popular.films.viewmodel.FilmsViewModel
 
 @Composable
-fun FilmsScreen(modifier: Modifier = Modifier) {
+fun FilmsScreen(
+    modifier: Modifier = Modifier,
+    navigateToDetail: (id: Int) -> Unit
+) {
 
     val viewModel: FilmsViewModel = viewModel<FilmsViewModel>()
 
@@ -45,7 +49,10 @@ fun FilmsScreen(modifier: Modifier = Modifier) {
             .background(MaterialTheme.colorScheme.background)
     ) {
         items(popularOfTheWeek) { movie ->
-            MovieItem(movie)
+            MovieItem(
+                movie,
+                navigateToDetail
+            )
         }
 //        items(newForFriend) { movie ->
 //            MovieItem(movie)
@@ -58,10 +65,12 @@ fun FilmsScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun MovieItem(data: Movie) {
+fun MovieItem(
+    data: Movie,
+    navigateToDetail: (id: Int) -> Unit
+) {
     val imageUrl = "https://image.tmdb.org/t/p/w500${data.posterPath}"
     Column {
-
         AsyncImage(
             model = imageUrl,
             contentDescription = null,
@@ -71,6 +80,9 @@ fun MovieItem(data: Movie) {
                 .height(150.dp)
                 .padding(8.dp)
                 .clip(RoundedCornerShape(10.dp))
+                .clickable {
+                   navigateToDetail(data.movieId)
+                }
         )
 
         Text(
@@ -107,6 +119,8 @@ fun MovieItem(data: Movie) {
 @Composable
 fun PreviewFilms() {
     Surface(Modifier.fillMaxWidth()) {
-        FilmsScreen()
+        FilmsScreen(navigateToDetail = {
+
+        })
     }
 }

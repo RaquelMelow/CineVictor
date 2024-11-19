@@ -22,6 +22,10 @@ supportAnnotations = "28.0.0"
 ksp = "2.0.20-1.0.25"
 coil = "2.7.0"
 ktor = "2.0.0"
+navigationRuntimeKtx = "2.8.3"
+navigationCompose = "2.8.4"
+kotlinSerialization = "1.6.3"
+
 
 
 [libraries]
@@ -64,6 +68,9 @@ ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "k
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1" # Sustituye por la versión que necesitas
 
 [bundles]
 coil = ["io-coil", "io-coil-compose"]
