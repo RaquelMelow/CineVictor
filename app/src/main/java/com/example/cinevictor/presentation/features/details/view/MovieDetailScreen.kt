@@ -97,7 +97,7 @@ fun MovieDetailScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(230.dp)
+                        .height(235.dp)
                         .background(
                             Brush.verticalGradient(
                                 colors = listOf(

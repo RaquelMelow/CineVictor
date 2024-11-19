@@ -1,17 +1,17 @@
 package com.example.cinevictor.presentation.ui.util
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
-@RequiresApi(Build.VERSION_CODES.O)
-fun convertStringToDate(dateString: String): LocalDate {
-    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-    return LocalDate.parse(dateString, formatter)
+fun convertStringToDate(dateString: String): Date {
+    val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    return formatter.parse(dateString) ?: Date()
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
-fun getYearFromDate(date: LocalDate): String {
-    return date.year.toString()
+fun getYearFromDate(date: Date): String {
+    val calendar = Calendar.getInstance()
+    calendar.time = date
+    return calendar.get(Calendar.YEAR).toString()
 }
