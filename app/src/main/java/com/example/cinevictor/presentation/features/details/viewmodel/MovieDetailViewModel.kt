@@ -17,7 +17,7 @@ data class MovieDetailState(
     val error: String? = null
 )
 
-class MovieDetailModel(private val repository: MovieRepository) : ViewModel() {
+class MovieDetailViewModel(private val repository: MovieRepository) : ViewModel() {
 
     private val _state = MutableStateFlow(MovieDetailState())
     val state: StateFlow<MovieDetailState> = _state

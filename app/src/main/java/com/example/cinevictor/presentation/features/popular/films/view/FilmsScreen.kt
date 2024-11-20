@@ -26,18 +26,17 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.cinevictor.domain.model.Movie
 import com.example.cinevictor.presentation.features.popular.films.viewmodel.FilmsViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun FilmsScreen(
     modifier: Modifier = Modifier,
-    navigateToDetail: (id: Int) -> Unit
+    navigateToDetail: (id: Int) -> Unit,
+    viewModel: FilmsViewModel = koinViewModel()
 ) {
-
-    val viewModel: FilmsViewModel = viewModel<FilmsViewModel>()
 
     val popularOfTheWeek by viewModel.popularOfTheWeek.collectAsState()
 //    val newForFriend by viewModel.newForFriend.collectAsState(initial = emptyList())

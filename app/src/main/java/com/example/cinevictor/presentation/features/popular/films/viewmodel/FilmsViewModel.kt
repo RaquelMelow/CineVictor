@@ -11,7 +11,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class FilmsViewModel : ViewModel() {
+class FilmsViewModel(
+    repository: MovieRepository
+) : ViewModel() {
 
     private val movieService = RetrofitClient.retrofit.create(MovieService::class.java)
     private val repository = MovieRepository(movieService)

@@ -12,7 +12,7 @@ import com.example.cinevictor.core.framework.network.retrofit.MovieService
 import com.example.cinevictor.core.framework.network.retrofit.RetrofitClient
 import com.example.cinevictor.data.repository.MovieRepository
 import com.example.cinevictor.presentation.features.details.view.MovieDetailScreen
-import com.example.cinevictor.presentation.features.details.viewmodel.MovieDetailModel
+import com.example.cinevictor.presentation.features.details.viewmodel.MovieDetailViewModel
 import com.example.cinevictor.presentation.features.popular.CineVictorNavigationDrawer
 import com.example.cinevictor.presentation.navigation.destinations.AppRoute
 
@@ -25,7 +25,7 @@ fun AppNavHost(
 ) {
     val movieService = RetrofitClient.retrofit.create(MovieService::class.java)
     val repository = MovieRepository(movieService)
-    val viewModel = MovieDetailModel(repository)
+    val viewModel = MovieDetailViewModel(repository)
 
     NavHost(
         modifier = modifier,

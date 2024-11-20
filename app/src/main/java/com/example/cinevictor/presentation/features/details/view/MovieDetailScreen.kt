@@ -49,7 +49,7 @@ import coil.compose.AsyncImage
 import com.example.cinevictor.R
 import com.example.cinevictor.domain.model.CastMember
 import com.example.cinevictor.domain.model.MovieDetailsCredit
-import com.example.cinevictor.presentation.features.details.viewmodel.MovieDetailModel
+import com.example.cinevictor.presentation.features.details.viewmodel.MovieDetailViewModel
 import com.example.cinevictor.presentation.ui.theme.CineTemita
 import com.example.cinevictor.presentation.ui.util.convertStringToDate
 import com.example.cinevictor.presentation.ui.util.getYearFromDate
@@ -57,7 +57,7 @@ import com.example.cinevictor.presentation.ui.util.getYearFromDate
 @Composable
 fun MovieDetailScreen(
     movieId: Int,
-    viewModel: MovieDetailModel
+    viewModel: MovieDetailViewModel
 ) {
 
     val state by viewModel.state.collectAsState()
