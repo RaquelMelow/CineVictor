@@ -1,6 +1,7 @@
 package com.example.cinevictor.presentation.features.films.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,16 +26,18 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.cinevictor.domain.model.Movie
 import com.example.cinevictor.presentation.features.popular.films.viewmodel.FilmsViewModel
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun FilmsScreen(modifier: Modifier = Modifier) {
-
-    val viewModel: FilmsViewModel = viewModel<FilmsViewModel>()
+fun FilmsScreen(
+    modifier: Modifier = Modifier,
+    navigateToDetail: (id: Int) -> Unit,
+    viewModel: FilmsViewModel = koinViewModel()
+) {
 
     val popularOfTheWeek by viewModel.popularOfTheWeek.collectAsState()
 //    val newForFriend by viewModel.newForFriend.collectAsState(initial = emptyList())
@@ -46,7 +49,10 @@ fun FilmsScreen(modifier: Modifier = Modifier) {
             .background(MaterialTheme.colorScheme.background)
     ) {
         items(popularOfTheWeek) { movie ->
-            MovieItem(movie)
+            MovieItem(
+                movie,
+                navigateToDetail
+            )
         }
 //        items(newForFriend) { movie ->
 //            MovieItem(movie)
@@ -59,10 +65,12 @@ fun FilmsScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun MovieItem(data: Movie) {
+fun MovieItem(
+    data: Movie,
+    navigateToDetail: (id: Int) -> Unit
+) {
     val imageUrl = "https://image.tmdb.org/t/p/w500${data.posterPath}"
     Column {
-
         AsyncImage(
             model = imageUrl,
             contentDescription = null,
@@ -72,6 +80,9 @@ fun MovieItem(data: Movie) {
                 .height(150.dp)
                 .padding(8.dp)
                 .clip(RoundedCornerShape(10.dp))
+                .clickable {
+                   navigateToDetail(data.movieId)
+                }
         )
 
         Text(
@@ -108,6 +119,8 @@ fun MovieItem(data: Movie) {
 @Composable
 fun PreviewFilms() {
     Surface(Modifier.fillMaxWidth()) {
-        FilmsScreen()
+        FilmsScreen(navigateToDetail = {
+
+        })
     }
 }

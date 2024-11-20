@@ -23,11 +23,12 @@ interface MovieService {
         @Query("page") page: Int
     ): Response<PopularMoviesResponse>
 
-    @GET("movie/{movie_id}/credit")
+    @GET("movie/{movie_id}")
     suspend fun getDetailCreditMovie(
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String,
         @Query("append_to_response") appendToResponse: String = "credits"
     ): Response<MovieDetailCreditResponse>
+
 
 }

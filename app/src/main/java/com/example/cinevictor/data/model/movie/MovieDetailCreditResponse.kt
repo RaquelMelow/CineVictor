@@ -73,7 +73,8 @@ data class SpokenLanguage(
 
 @JsonClass(generateAdapter = true)
 data class Credits(
-    @Json(name = "cast") val cast: List<Cast>
+    @Json(name = "cast") val cast: List<Cast>,
+    @Json(name = "crew") val crew: List<Crew>
 )
 
 @JsonClass(generateAdapter = true)
@@ -93,6 +94,26 @@ data class Cast(
     @Json(name = "job") val job: String?
 )
 
+@JsonClass(generateAdapter = true)
+data class Crew(
+    @Json(name = "adult") val adult: Boolean,
+    @Json(name = "gender") val gender: Int,
+    @Json(name = "id") val id: Int,
+    @Json(name = "known_for_department") val knownForDepartment: String,
+    @Json(name = "name") val name: String,
+    @Json(name = "original_name") val originalName: String,
+    @Json(name = "popularity") val popularity: Double,
+    @Json(name = "profile_path") val profilePath: String?,
+    @Json(name = "credit_id") val creditId: String,
+    @Json(name = "department") val department: String,
+    @Json(name = "job") val job: String
+)
+
+fun List<Crew>?.getDirectorName(): String? {
+    return this?.find { it.job.equals("Director", ignoreCase = true) }?.name
+}
+
+
 
 fun MovieDetailCreditResponse.toDomain(): MovieDetailsCredit {
     return MovieDetailsCredit(
@@ -106,7 +127,8 @@ fun MovieDetailCreditResponse.toDomain(): MovieDetailsCredit {
         voteCount = voteCount,
         runtime = runtime,
         genres = genres.map { it.name },
-        cast = credits?.cast?.map { it.toDomain() } ?: emptyList()
+        cast = credits?.cast?.map { it.toDomain() } ?: emptyList(),
+        directorName = credits?.crew.getDirectorName()
     )
 }
 
@@ -119,3 +141,4 @@ fun Cast.toDomain(): CastMember {
         profilePath = "https://image.tmdb.org/t/p/w500$profilePath"
     )
 }
+
