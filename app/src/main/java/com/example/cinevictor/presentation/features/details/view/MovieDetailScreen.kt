@@ -53,11 +53,12 @@ import com.example.cinevictor.presentation.features.details.viewmodel.MovieDetai
 import com.example.cinevictor.presentation.ui.theme.CineTemita
 import com.example.cinevictor.presentation.ui.util.convertStringToDate
 import com.example.cinevictor.presentation.ui.util.getYearFromDate
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun MovieDetailScreen(
     movieId: Int,
-    viewModel: MovieDetailViewModel
+    viewModel: MovieDetailViewModel = koinViewModel()
 ) {
 
     val state by viewModel.state.collectAsState()

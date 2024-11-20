@@ -81,7 +81,7 @@ fun MovieItem(
                 .padding(8.dp)
                 .clip(RoundedCornerShape(10.dp))
                 .clickable {
-                   navigateToDetail(data.movieId)
+                   navigateToDetail(data.id)
                 }
         )
 

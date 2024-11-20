@@ -8,11 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.example.cinevictor.core.framework.network.retrofit.MovieService
-import com.example.cinevictor.core.framework.network.retrofit.RetrofitClient
-import com.example.cinevictor.data.repository.MovieRepository
 import com.example.cinevictor.presentation.features.details.view.MovieDetailScreen
-import com.example.cinevictor.presentation.features.details.viewmodel.MovieDetailViewModel
 import com.example.cinevictor.presentation.features.popular.CineVictorNavigationDrawer
 import com.example.cinevictor.presentation.navigation.destinations.AppRoute
 
@@ -23,10 +19,6 @@ fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
-    val movieService = RetrofitClient.retrofit.create(MovieService::class.java)
-    val repository = MovieRepository(movieService)
-    val viewModel = MovieDetailViewModel(repository)
-
     NavHost(
         modifier = modifier,
         navController = navController,
@@ -42,7 +34,7 @@ fun AppNavHost(
 
         composable<AppRoute.Detail> { backStackEntry ->
             val route = backStackEntry.toRoute<AppRoute.Detail>()
-            MovieDetailScreen(movieId = route.id, viewModel)
+            MovieDetailScreen(movieId = route.id)
         }
     }
 }

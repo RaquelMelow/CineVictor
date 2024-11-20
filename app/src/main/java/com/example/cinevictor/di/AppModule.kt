@@ -1,7 +1,7 @@
 import android.content.Context
 import android.net.ConnectivityManager
 import com.example.cinevictor.core.framework.network.interceptors.ConnectivityInterceptor
-import com.example.cinevictor.core.framework.network.retrofit.MovieService
+import com.example.cinevictor.data.network.MovieService
 import com.example.cinevictor.data.repository.MovieRepository
 import com.example.cinevictor.presentation.features.details.viewmodel.MovieDetailViewModel
 import com.example.cinevictor.presentation.features.popular.films.viewmodel.FilmsViewModel
@@ -21,7 +21,6 @@ import java.util.concurrent.TimeUnit
 private const val BASE_URL = "https://api.themoviedb.org/3/"
 
 val presentationModule = module {
-
     viewModelOf(::FilmsViewModel)
     viewModelOf(::MovieDetailViewModel)
     viewModelOf(::ListsViewModel)
@@ -69,5 +68,5 @@ val coreModule = module {
         get<Retrofit>().create(MovieService::class.java)
     }
 
-    //Falta el Room y Dao
+    //TODO: Falta el Room y Dao
 }
