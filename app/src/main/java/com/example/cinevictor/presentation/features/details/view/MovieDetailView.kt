@@ -22,9 +22,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -96,8 +98,15 @@ fun MovieDetailView(movieDetailsCredit: MovieDetailsCredit) {
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
-            Row {
-                Column {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.End
+            ) {
+                Column(
+                    modifier = Modifier.weight(1f)
+                ) {
                     Text(
                         text = movieDetailsCredit.title,
                         color = Color.White,
@@ -209,9 +218,21 @@ fun MovieDetailView(movieDetailsCredit: MovieDetailsCredit) {
                     }
                 }
             }
+
+            IconButton(
+                onClick = { navController.popBackStack() },
+                modifier = Modifier
+                    .padding(8.dp)
+                    .background(Color.Black.copy(alpha = 0.5f), shape = CircleShape)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "Go back",
+                    tint = Color.White
+                )
+            }
         }
     }
-
 }
 
 @SuppressLint("DefaultLocale")
