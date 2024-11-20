@@ -12,6 +12,7 @@ data class MovieDetailsCredit(
     val runtime: Int?,
     val genres: List<String>,
     val cast: List<CastMember>,
+    val directorName: String? = null
 )
 
 data class GenresList(

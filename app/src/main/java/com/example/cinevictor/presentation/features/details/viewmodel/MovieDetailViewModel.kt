@@ -3,44 +3,50 @@ package com.example.cinevictor.presentation.features.details.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinevictor.data.repository.MovieRepository
-import com.example.cinevictor.domain.model.Movie
 import com.example.cinevictor.domain.model.MovieDetailsCredit
 import com.example.cinevictor.domain.util.ApiResult
+import com.example.cinevictor.domain.util.toMessage
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class MovieDetailViewModel(private val repository: MovieRepository): ViewModel() {
+data class MovieDetailState(
+    val movieDetails: MovieDetailsCredit? = null,
+    val isLoading: Boolean = false,
+    val error: String? = null
+)
 
-    private val _movieDetails = MutableStateFlow<List<Movie>?>(null)
-    val movieDetails: StateFlow<List<Movie>?> = _movieDetails
+class MovieDetailViewModel(private val repository: MovieRepository) : ViewModel() {
 
-    private val _isLoading = MutableStateFlow(false)
-    val isLoading: StateFlow<Boolean> = _isLoading
+    private val _state = MutableStateFlow(MovieDetailState())
+    val state: StateFlow<MovieDetailState> = _state
 
-    init {
-        loadMovieDetails()
-    }
-
-    private fun loadMovieDetails() {
+    fun loadMovieDetails(id: Int) {
         viewModelScope.launch {
-            _isLoading.value = true
 
-            val response = repository.getPopularMovies()
+            _state.update {state.value.copy(isLoading = true) }
 
-            when(response) {
+            when (val response = repository.getMovieDetails(id)) {
                 is ApiResult.Error -> {
+                    _state.update {
+                        state.value.copy(
+                            isLoading = false,
+                            error = response.error.toMessage())
 
+                    }
                 }
 
                 is ApiResult.Success -> {
-                    _movieDetails.value = response.data
+                    _state.update {
+                        state.value.copy(
+                            isLoading = false,
+                            movieDetails = response.data,
+                            error = null
+                        )
+                    }
                 }
             }
-
-
-            _isLoading.value = false
         }
     }
-
 }

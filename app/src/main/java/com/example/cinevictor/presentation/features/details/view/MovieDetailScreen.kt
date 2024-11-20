@@ -22,15 +22,16 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,194 +43,188 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import coil.compose.AsyncImage
 import com.example.cinevictor.R
 import com.example.cinevictor.domain.model.CastMember
 import com.example.cinevictor.domain.model.MovieDetailsCredit
+import com.example.cinevictor.presentation.features.details.viewmodel.MovieDetailViewModel
 import com.example.cinevictor.presentation.ui.theme.CineTemita
 import com.example.cinevictor.presentation.ui.util.convertStringToDate
 import com.example.cinevictor.presentation.ui.util.getYearFromDate
+import org.koin.androidx.compose.koinViewModel
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun MovieDetailView(movieDetailsCredit: MovieDetailsCredit) {
+fun MovieDetailScreen(
+    movieId: Int,
+    viewModel: MovieDetailViewModel = koinViewModel()
+) {
 
-    val directorName = movieDetailsCredit.cast.firstOrNull { it.job == "Director" }?.name ?: "Unknown Director"
+    val state by viewModel.state.collectAsState()
+
+    LifecycleEventEffect(Lifecycle.Event.ON_START) {
+        viewModel.loadMovieDetails(movieId)
+    }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
             .verticalScroll(rememberScrollState())
     ) {
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(180.dp)
-        ) {
+        if (state.isLoading) {
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+        }
 
-            AsyncImage(
-                model = movieDetailsCredit.backdropPath,
-                placeholder = painterResource(R.drawable.backdrop),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
-            )
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(100.dp)
-                    .align(Alignment.BottomCenter)
-                    .background(
-                        Brush.verticalGradient(
-                            colors = listOf(
-                                Color.Transparent,
-                                Color.Black.copy(alpha = 0.5f),
-                                Color.Black.copy(alpha = 0.9f),
-                                Color.Black
-                            )
-                        )
-                    )
+        state.error?.let {
+            Text(
+                text = it,
+                color = Color.Red,
+                style = MaterialTheme.typography.bodyMedium
             )
         }
 
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalArrangement = Arrangement.End
-            ) {
-                Column(
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Text(
-                        text = movieDetailsCredit.title,
-                        color = Color.White,
-                        style = MaterialTheme.typography.titleLarge,
-                    )
+        state.movieDetails?.let { movieDetails ->
+            Box {
+                AsyncImage(
+                    model = movieDetails.backdropPath,
+                    placeholder = painterResource(R.drawable.backdrop),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
 
-                    Text(
-                        text = "Director by",
-                        style = MaterialTheme.typography.labelLarge
-                    )
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(235.dp)
+                        .background(
+                            Brush.verticalGradient(
+                                colors = listOf(
+                                    Color.Transparent,
+                                    Color.Black.copy(alpha = 0.7f),
+                                    Color.Black
+                                )
+                            )
+                        )
+                )
+            }
 
-
-                    Text(
-                        text = directorName,
-                        style = MaterialTheme.typography.labelMedium
-                    )
-
-                    Row {
-                        val releaseYear = getYearFromDate(convertStringToDate(movieDetailsCredit.releaseDate))
+            Column(modifier = Modifier.padding(16.dp)) {
+                Row {
+                    Column {
+                        Text(
+                            text = movieDetails.title,
+                            color = Color.White,
+                            style = MaterialTheme.typography.titleLarge,
+                        )
 
                         Text(
-                            text = releaseYear,
-                            style = MaterialTheme.typography.bodyMedium.copy(color = Color.White, fontWeight = FontWeight.Bold)
+                            text = "Director by",
+                            style = MaterialTheme.typography.labelLarge
                         )
+
+                        Text(
+                            text = movieDetails.directorName ?: "Unknown",
+                            style = MaterialTheme.typography.labelMedium
+                        )
+
+                        Row {
+                            val releaseYear =
+                                getYearFromDate(convertStringToDate(movieDetails.releaseDate))
+
+                            Text(
+                                text = releaseYear,
+                                style = MaterialTheme.typography.bodyMedium.copy(
+                                    color = Color.White,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            )
+
+                            Spacer(modifier = Modifier.padding(3.dp))
+
+                            Text(
+                                text = "${movieDetails.runtime} min",
+                                style = MaterialTheme.typography.bodyMedium.copy(color = Color.White)
+                            )
+
+                        }
 
                         Spacer(modifier = Modifier.padding(3.dp))
 
-                        Text(
-                            text = "${movieDetailsCredit.runtime} min",
-                            style = MaterialTheme.typography.bodyMedium.copy(color = Color.White)
-                        )
 
                     }
 
-                    Spacer(modifier = Modifier.padding(3.dp))
-
-
-                }
-
-                AsyncImage(
-                    placeholder = painterResource(R.drawable.poster),
-                    model = movieDetailsCredit.posterPath,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(150.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                )
-
-            }
-
-            Text(
-                text = movieDetailsCredit.overview,
-                style = MaterialTheme.typography.bodyMedium.copy(color = Color.White),
-            )
-
-            HorizontalDivider(
-                color = Color.Gray,
-                thickness = 1.dp,
-                modifier = Modifier.padding(vertical = 4.dp)
-            )
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Column {
-                    Text(
-                        text = "Rating",
-                        style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold)
+                    AsyncImage(
+                        placeholder = painterResource(R.drawable.poster),
+                        model = movieDetails.posterPath,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(150.dp)
+                            .clip(RoundedCornerShape(8.dp))
                     )
 
+                }
 
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp),
-                        contentAlignment = Alignment.Center
+                Text(
+                    text = movieDetails.overview,
+                    style = MaterialTheme.typography.bodyMedium.copy(color = Color.White),
+                )
+
+                HorizontalDivider(
+                    color = Color.Gray,
+                    thickness = 1.dp,
+                    modifier = Modifier.padding(vertical = 4.dp)
+                )
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Column {
+                        Text(
+                            text = "Rating",
+                            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold)
+                        )
+
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(8.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            MovieRating(rating = movieDetails.voteAverage.toFloat())
+                        }
+                    }
+                }
+
+                HorizontalDivider(
+                    color = Color.Gray,
+                    thickness = 1.dp,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+
+                if (movieDetails.cast.isNotEmpty()) {
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = "Cast",
+                        color = Color.White,
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+
+                    LazyRow(
+                        modifier = Modifier.padding(top = 8.dp)
                     ) {
 
-
-                        MovieRating(rating = movieDetailsCredit.voteAverage.toFloat())
-
+                        items(movieDetails.cast) { castMember ->
+                            CastMemberItem(castMember)
+                        }
                     }
                 }
-            }
-
-            HorizontalDivider(
-                color = Color.Gray,
-                thickness = 1.dp,
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
-
-            if (movieDetailsCredit.cast.isNotEmpty()) {
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = "Cast",
-                    color = Color.White,
-                    style = MaterialTheme.typography.bodyLarge,
-                )
-
-                LazyRow (
-                    modifier = Modifier.padding(top = 8.dp)
-                ) {
-
-                    items(movieDetailsCredit.cast) { castMember ->
-                        CastMemberItem(castMember)
-                    }
-                }
-            }
-
-            IconButton(
-                onClick = { navController.popBackStack() },
-                modifier = Modifier
-                    .padding(8.dp)
-                    .background(Color.Black.copy(alpha = 0.5f), shape = CircleShape)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Go back",
-                    tint = Color.White
-                )
             }
         }
     }
@@ -343,14 +338,12 @@ fun CastMemberItem(castMember: CastMember) {
     }
 }
 
-
-
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable
 fun PreviewMovieDetail() {
     val sampleMovie = MovieDetailsCredit(
-        id = 1,
+        id = 1034541,
         title = "Sample Movie Title",
         backdropPath = "https://image.tmdb.org/t/p/w500/gMQibswELoKmB60imE7WFMlCuqY.jpg",
         posterPath = "https://image.tmdb.org/t/p/w500/4xIzrMcEvCzJm5qAl92WMHLSIeM.jpg",
@@ -366,9 +359,8 @@ fun PreviewMovieDetail() {
         ),
     )
     CineTemita {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            MovieDetailView(movieDetailsCredit = sampleMovie)
-        }
+        //viewModel.loadMovieDetails(sampleMovie.id) // Cargar los detalles de la película en el ViewModel
+        //MovieDetailScreen(movieId = sampleMovie.id, viewModel = viewModel)
     }
 }
 
