@@ -34,7 +34,7 @@ fun AppNavHost(
 
         composable<AppRoute.Detail> { backStackEntry ->
             val route = backStackEntry.toRoute<AppRoute.Detail>()
-            MovieDetailScreen(movieId = route.id)
+            MovieDetailScreen(movieId = route.id,  navController = navController)
         }
     }
 }

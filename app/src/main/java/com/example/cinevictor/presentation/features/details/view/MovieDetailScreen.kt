@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,6 +23,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
@@ -32,6 +34,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -41,6 +44,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
@@ -58,7 +62,8 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun MovieDetailScreen(
     movieId: Int,
-    viewModel: MovieDetailViewModel = koinViewModel()
+    viewModel: MovieDetailViewModel = koinViewModel(),
+    navController: androidx.navigation.NavController
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -103,8 +108,8 @@ fun MovieDetailScreen(
                             Brush.verticalGradient(
                                 colors = listOf(
                                     Color.Transparent,
-                                    Color.Black.copy(alpha = 0.7f),
-                                    Color.Black
+                                    Color(0xFF222222).copy(alpha = 0.7f),
+                                    Color(0xFF222222)
                                 )
                             )
                         )
@@ -112,8 +117,15 @@ fun MovieDetailScreen(
             }
 
             Column(modifier = Modifier.padding(16.dp)) {
-                Row {
-                    Column {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Column(
+                        modifier = Modifier.weight(1f)
+                    ) {
                         Text(
                             text = movieDetails.title,
                             color = Color.White,
@@ -160,6 +172,7 @@ fun MovieDetailScreen(
                         placeholder = painterResource(R.drawable.poster),
                         model = movieDetails.posterPath,
                         contentDescription = null,
+                        alignment = AbsoluteAlignment.CenterRight,
                         modifier = Modifier
                             .size(150.dp)
                             .clip(RoundedCornerShape(8.dp))
@@ -170,7 +183,9 @@ fun MovieDetailScreen(
                 Text(
                     text = movieDetails.overview,
                     style = MaterialTheme.typography.bodyMedium.copy(color = Color.White),
+                    textAlign = TextAlign.Justify
                 )
+
 
                 HorizontalDivider(
                     color = Color.Gray,
@@ -187,7 +202,7 @@ fun MovieDetailScreen(
                     Column {
                         Text(
                             text = "Rating",
-                            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold)
+                            style = MaterialTheme.typography.titleMedium
                         )
 
 
@@ -209,11 +224,9 @@ fun MovieDetailScreen(
                 )
 
                 if (movieDetails.cast.isNotEmpty()) {
-                    Spacer(modifier = Modifier.height(16.dp))
                     Text(
                         text = "Cast",
-                        color = Color.White,
-                        style = MaterialTheme.typography.bodyLarge,
+                        style = MaterialTheme.typography.titleMedium
                     )
 
                     LazyRow(
@@ -226,6 +239,36 @@ fun MovieDetailScreen(
                     }
                 }
             }
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+                    .background(Color.Black, shape = CircleShape)
+                    .clickable(onClick = { navController.popBackStack() })
+            ) {
+                Row(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .padding(horizontal = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Go back",
+                        tint = Color.White
+                    )
+
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    Text(
+                        text = "GO BACK",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                }
+            }
+
         }
     }
 }

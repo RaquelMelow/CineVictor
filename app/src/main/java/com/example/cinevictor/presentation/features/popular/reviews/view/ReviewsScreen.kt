@@ -50,7 +50,7 @@ fun ReviewsScreen() {
 
 @Preview(
     name = "Pixel 5",
-    device = "spec:shape=Normal,width=1080,height=2400,unit=px,dpi=480",
+    device = "spec:width=1080dp,height=2400dp,dpi=480",
     showSystemUi = true
 )
 
