@@ -52,7 +52,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cinevictor.domain.model.NavigationItems
-import com.example.cinevictor.presentation.features.films.view.FilmsScreen
+import com.example.cinevictor.presentation.features.popular.films.view.FilmsScreen
 import com.example.cinevictor.presentation.features.popular.journal.view.JournalRoute
 import com.example.cinevictor.presentation.features.popular.journal.viewmodel.JournalViewModel
 import com.example.cinevictor.presentation.features.popular.lists.view.ListsScreen
