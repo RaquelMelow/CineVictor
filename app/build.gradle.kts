@@ -5,17 +5,17 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
-
 }
 
 android {
     namespace = "com.example.cinevictor"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.cinevictor"
         minSdk = 24
-        targetSdk = 34
+        //noinspection OldTargetApi
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -25,7 +25,7 @@ android {
         }
 
         buildConfigField("String", "API_KEY", gradleLocalProperties(rootDir, providers).getProperty("API_KEY"))
-        
+        buildConfigField("String", "AUTH_TOKEN", gradleLocalProperties(rootDir, providers).getProperty("AUTH_TOKEN"))
     }
 
     buildTypes {
@@ -59,6 +59,13 @@ android {
 }
 
 dependencies {
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+    implementation(libs.koin.androidx.workmanager)
+
+    //Coil
+    implementation(libs.coil.compose)
     // Room database
     val room_version = "2.6.1"
 
@@ -102,6 +109,8 @@ dependencies {
     // Moshi
     implementation(libs.moshi.kotlin)
     implementation (libs.moshi.converter)
+    implementation(libs.androidx.navigation.runtime.ktx)
+    implementation(libs.androidx.navigation.compose)
     ksp(libs.moshi.codegen)
 
     // Kotlin Coroutines
@@ -112,6 +121,10 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
 
+    //Serialization
+    implementation(libs.ktor.client.serialization)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)

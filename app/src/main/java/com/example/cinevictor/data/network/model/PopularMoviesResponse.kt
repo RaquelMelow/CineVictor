@@ -18,9 +18,10 @@ fun List<MovieResponse>.toDomainList(): List<Movie> {
 
 fun MovieResponse.toDomain(): Movie {
     return Movie(
-        movieId = id,
-        movieTitle = title,
-        posterPath = posterPath
+        id = id,
+        title = title,
+        overview = overview,
+        posterPath = "https://image.tmdb.org/t/p/w500$posterPath"
     )
 }
 
