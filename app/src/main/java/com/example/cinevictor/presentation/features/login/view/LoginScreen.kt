@@ -94,7 +94,7 @@ fun LoginScreen(
                         fontSize = 14.sp
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    TextButton(onClick = { navigationToRegister() }) {
+                    TextButton(onClick = navigationToRegister) {
                         Text("Registrarse", color = Color.Yellow)
                     }
                 }
@@ -185,7 +185,7 @@ fun LoginScreen(
                         fontSize = 14.sp
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    TextButton(onClick = { /* Acción de registro */ }) {
+                    TextButton(onClick = { navigationToRegister }) {
                         Text("Registrarse", color = Color.Yellow)
                     }
                 }
@@ -197,6 +197,6 @@ fun LoginScreen(
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen(onLoginSuccess = { }, navigationToRegister = {})
+    LoginScreen(onLoginSuccess = { }, navigationToRegister = { })
 }
 

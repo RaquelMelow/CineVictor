@@ -11,7 +11,22 @@ import androidx.navigation.toRoute
 import com.example.cinevictor.presentation.features.login.view.LoginScreen
 import com.example.cinevictor.presentation.features.popular.CineVictorNavigationDrawer
 import com.example.cinevictor.presentation.features.popular.details.view.MovieDetailScreen
+import com.example.cinevictor.presentation.features.register.view.RegisterFormScreen
 import com.example.cinevictor.presentation.navigation.destinations.AppRoute
+
+fun main() {
+    doSomething(
+        action = { id ->
+            println("Algo importante con el id: $id")
+        }
+    )
+}
+
+fun doSomething(action: (id: Int) -> Unit) {
+    println("Empezar algo...")
+    action(5)
+    println("Terminar algo...")
+}
 
 
 @SuppressLint("NewApi")
@@ -23,15 +38,24 @@ fun AppNavHost(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = AppRoute.Popular
+        startDestination = AppRoute.Login
     ) {
         composable<AppRoute.Login> {
-            LoginScreen({
+            LoginScreen(
+                onLoginSuccess = {
                 navController.navigate(AppRoute.Popular)
             },
-                navigationToRegister = { register ->
+                navigationToRegister = {
                     navController.navigate(AppRoute.Register)
                 }
+            )
+        }
+
+        composable<AppRoute.Register> {
+            RegisterFormScreen(
+                onRegisterSuccess = {
+
+                },
             )
         }
 
