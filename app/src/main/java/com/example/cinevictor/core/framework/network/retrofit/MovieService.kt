@@ -1,8 +1,8 @@
-package com.example.cinevictor.data.network
+package com.example.cinevictor.core.framework.network.retrofit
 
 import com.example.cinevictor.BuildConfig
-import com.example.cinevictor.data.model.PopularMoviesResponse
 import com.example.cinevictor.data.model.movie.MovieDetailCreditResponse
+import com.example.cinevictor.data.network.model.PopularMoviesResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
+
 }
 
 android {
@@ -69,8 +70,14 @@ dependencies {
     //Coil
     implementation(libs.coil.compose)
 
+
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+
     // Retrofit
     implementation(libs.retrofit)
+
     implementation(libs.retrofit2.kotlin.coroutines.adapter)
 
 

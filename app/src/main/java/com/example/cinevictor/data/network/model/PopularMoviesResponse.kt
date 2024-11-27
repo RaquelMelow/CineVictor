@@ -1,6 +1,5 @@
-package com.example.cinevictor.data.model
+package com.example.cinevictor.data.network.model
 
-import com.example.cinevictor.data.model.movie.MovieResponse
 import com.example.cinevictor.domain.model.Movie
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
