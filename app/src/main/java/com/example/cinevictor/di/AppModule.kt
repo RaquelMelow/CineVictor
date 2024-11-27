@@ -3,10 +3,12 @@ import android.net.ConnectivityManager
 import com.example.cinevictor.core.framework.network.interceptors.ConnectivityInterceptor
 import com.example.cinevictor.core.framework.network.retrofit.MovieService
 import com.example.cinevictor.data.repository.MovieRepository
-import com.example.cinevictor.presentation.features.details.viewmodel.MovieDetailViewModel
 import com.example.cinevictor.presentation.features.films.viewmodel.FilmsViewModel
+import com.example.cinevictor.presentation.features.login.viewmodel.LoginViewModel
+import com.example.cinevictor.presentation.features.popular.details.viewmodel.MovieDetailViewModel
 import com.example.cinevictor.presentation.features.popular.lists.viewmodel.ListsViewModel
 import com.example.cinevictor.presentation.features.popular.reviews.viewModel.ReviewsViewModel
+import com.example.cinevictor.presentation.features.register.viewmodel.RegisterViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -25,6 +27,8 @@ val presentationModule = module {
     viewModelOf(::MovieDetailViewModel)
     viewModelOf(::ListsViewModel)
     viewModelOf(::ReviewsViewModel)
+    viewModelOf(::LoginViewModel)
+    viewModelOf(::RegisterViewModel)
 }
 
 val dataModule = module {
@@ -67,6 +71,4 @@ val coreModule = module {
     single {
         get<Retrofit>().create(MovieService::class.java)
     }
-
-
 }

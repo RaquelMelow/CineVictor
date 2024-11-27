@@ -8,4 +8,10 @@ sealed class AppRoute {
 
     @Serializable
     data class Detail(val id: Int): AppRoute()
+
+    @Serializable
+    object Login : AppRoute()
+
+    @Serializable
+    object Register : AppRoute()
 }
