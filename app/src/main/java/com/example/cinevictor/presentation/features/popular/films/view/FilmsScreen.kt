@@ -1,5 +1,6 @@
 package com.example.cinevictor.presentation.features.popular.films.view
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -43,7 +44,8 @@ fun FilmsScreen(
 
     LaunchedEffect(gridState) {
         snapshotFlow {
-            gridState.layoutInfo.visibleItemsInfo.lastOrNull()?.index }
+            gridState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
+        }
             .collect { lastVisibleIndex ->
                 if (lastVisibleIndex == popularOfTheWeek.size - 1) {
                     viewModel.loadMovies()
@@ -52,33 +54,40 @@ fun FilmsScreen(
     }
 
 
-    LazyVerticalGrid (
+    LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 100.dp),
         state = gridState,
         modifier = modifier.fillMaxSize()
     ) {
         items(popularOfTheWeek) { movie ->
-            MovieItem(movie)
+            MovieItem(movie, navigateToDetail)
         }
     }
 }
 
 @Composable
-fun MovieItem(data: Movie) {
+fun MovieItem(
+    data: Movie,
+    navigateToDetail: (Int) -> Unit,
+) {
     val imageUrl = "https://image.tmdb.org/t/p/w500${data.posterPath}"
-    Box (
-            modifier = Modifier
-                .width(100.dp)
-                .height(150.dp)
-                .padding(2.dp)
-                .clip(RoundedCornerShape(5.dp))
-            ){
+    Box(
+        modifier = Modifier
+            .width(100.dp)
+            .height(150.dp)
+            .padding(2.dp)
+            .clip(RoundedCornerShape(5.dp))
+    ) {
 
         AsyncImage(
             model = imageUrl,
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .clickable {
+                    navigateToDetail(data.id)
+                }
         )
 
     }
