@@ -8,8 +8,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.example.cinevictor.presentation.features.details.view.MovieDetailScreen
+import com.example.cinevictor.presentation.features.login.view.LoginScreen
 import com.example.cinevictor.presentation.features.popular.CineVictorNavigationDrawer
+import com.example.cinevictor.presentation.features.popular.details.view.MovieDetailScreen
 import com.example.cinevictor.presentation.navigation.destinations.AppRoute
 
 
@@ -24,6 +25,15 @@ fun AppNavHost(
         navController = navController,
         startDestination = AppRoute.Popular
     ) {
+        composable<AppRoute.Login> {
+            LoginScreen({
+                navController.navigate(AppRoute.Popular)
+            },
+                navigationToRegister = { register ->
+                    navController.navigate(AppRoute.Register)
+                }
+            )
+        }
 
         composable<AppRoute.Popular> {
             CineVictorNavigationDrawer(

@@ -1,4 +1,4 @@
-package com.example.cinevictor.presentation.features.details.view
+package com.example.cinevictor.presentation.features.popular.details.view
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -53,7 +53,7 @@ import coil.compose.AsyncImage
 import com.example.cinevictor.R
 import com.example.cinevictor.domain.model.CastMember
 import com.example.cinevictor.domain.model.MovieDetailsCredit
-import com.example.cinevictor.presentation.features.details.viewmodel.MovieDetailViewModel
+import com.example.cinevictor.presentation.features.popular.details.viewmodel.MovieDetailViewModel
 import com.example.cinevictor.presentation.ui.theme.CineTemita
 import com.example.cinevictor.presentation.ui.util.convertStringToDate
 import com.example.cinevictor.presentation.ui.util.getYearFromDate

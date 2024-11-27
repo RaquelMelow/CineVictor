@@ -20,10 +20,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,29 +33,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cinevictor.R
+import com.example.cinevictor.presentation.features.login.viewmodel.LoginViewModel
+import org.koin.androidx.compose.koinViewModel
 
-private val textFieldColors @Composable get() = TextFieldDefaults.colors(
-    focusedContainerColor = Color.Black,
-    unfocusedContainerColor = Color.Black,
-    errorContainerColor = Color.Black,
-    focusedTextColor = Color.White,
-    unfocusedTextColor = Color.White,
-    errorTextColor = Color.Red,
-    focusedIndicatorColor = Color.White,
-    unfocusedIndicatorColor = Color.Gray,
-    errorIndicatorColor = Color.Red,
-    cursorColor = Color.White,
-    focusedLabelColor = Color.White,
-    unfocusedLabelColor = Color.Gray,
-    errorLabelColor = Color.Red
-)
 
 @Composable
-fun LoginScreen(onLoginSuccess: () -> Unit) {
-    var isLoginVisible by remember { mutableStateOf(false) }
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var isError by remember { mutableStateOf(false) }
+fun LoginScreen(
+    onLoginSuccess: () -> Unit,
+    navigationToRegister: () -> Unit,
+    viewModel: LoginViewModel = koinViewModel()
+) {
+    val email by viewModel.email.collectAsState()
+    val password by viewModel.password.collectAsState()
+    val isError by viewModel.isError.collectAsState()
+    val isLoginVisible by viewModel.isLoginVisible.collectAsState()
 
     val backgroundImage = painterResource(id = R.drawable.logincinevictorconlogo)
 
@@ -82,7 +71,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
         ) {
             if (!isLoginVisible) {
                 Button(
-                    onClick = { isLoginVisible = true },
+                    onClick = { viewModel.toggleLoginVisibility() },
                     modifier = Modifier,
                     shape = RectangleShape,
                     colors = buttonColors(Color.White),
@@ -105,14 +94,14 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
                         fontSize = 14.sp
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    TextButton(onClick = { /* Acción de registro */ }) {
+                    TextButton(onClick = { navigationToRegister() }) {
                         Text("Registrarse", color = Color.Yellow)
                     }
                 }
             } else {
                 TextField(
                     value = email,
-                    onValueChange = { email = it },
+                    onValueChange = { viewModel.onEmailChange(it) },
                     label = { Text("Email", color = Color.White, fontSize = 14.sp) },
                     modifier = Modifier
                         .background(Color.Transparent),
@@ -140,7 +129,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
 
                 TextField(
                     value = password,
-                    onValueChange = { password = it },
+                    onValueChange = { viewModel.onPasswordChange(it) },
                     label = { Text("Contraseña", color = Color.White, fontSize = 14.sp) },
                     modifier = Modifier
                         .background(Color.Transparent),
@@ -171,13 +160,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
-                    onClick = {
-                        if (email.isNotEmpty() && password.isNotEmpty()) {
-                            onLoginSuccess()
-                        } else {
-                            isError = true
-                        }
-                    },
+                    onClick = { viewModel.validateLogin(onLoginSuccess) },
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .padding(10.dp),
@@ -214,6 +197,6 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen(onLoginSuccess = { })
+    LoginScreen(onLoginSuccess = { }, navigationToRegister = {})
 }
 
