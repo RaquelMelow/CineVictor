@@ -5,7 +5,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.cinevictor.data.local.dao.MovieDao
-import com.example.cinevictor.domain.model.MovieRoom
 
 @Database(entities = [MovieRoom::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {

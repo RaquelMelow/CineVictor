@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.example.cinevictor.domain.model.MovieRoom
+import com.example.cinevictor.data.local.database.MovieRoom
 
 @Dao
 interface MovieDao {

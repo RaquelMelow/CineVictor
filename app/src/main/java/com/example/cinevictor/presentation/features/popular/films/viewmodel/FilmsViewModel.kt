@@ -1,8 +1,8 @@
-package com.example.cinevictor.presentation.features.films.viewmodel
+package com.example.cinevictor.presentation.features.popular.films.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinevictor.data.network.MovieRepository
+import com.example.cinevictor.data.repository.MovieRepository
 import com.example.cinevictor.data.network.MovieService
 import com.example.cinevictor.data.network.RetrofitClient
 import com.example.cinevictor.domain.model.Movie

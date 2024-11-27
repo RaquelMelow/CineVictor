@@ -1,4 +1,4 @@
-package com.example.cinevictor.domain.model
+package com.example.cinevictor.data.local.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

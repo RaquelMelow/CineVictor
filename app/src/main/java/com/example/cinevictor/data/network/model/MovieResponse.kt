@@ -1,4 +1,4 @@
-package com.example.cinevictor.data.model.movie
+package com.example.cinevictor.data.network.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
