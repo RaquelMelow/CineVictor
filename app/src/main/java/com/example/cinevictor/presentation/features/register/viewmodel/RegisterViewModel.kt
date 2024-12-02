@@ -67,8 +67,7 @@ class RegisterViewModel : ViewModel() {
 
     fun onRegister() {
         if (isFormValid()) {
-            // Aquí, agregas el comportamiento cuando el registro sea exitoso.
-            // Puedes emitir un evento o llamar a un método en un repositorio.
+
         } else {
             _isError.value = true
         }

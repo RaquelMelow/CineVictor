@@ -20,10 +20,9 @@ import com.example.cinevictor.presentation.ui.theme.CineTemita
 
 
 @Composable
-fun ReviewsScreen() {
-
-    val viewModel: ReviewsViewModel = viewModel<ReviewsViewModel>()
-
+fun ReviewsScreen(
+    viewModel: ReviewsViewModel = viewModel()
+) {
     val popularReviews by viewModel.popularReviews.collectAsState()
 
 

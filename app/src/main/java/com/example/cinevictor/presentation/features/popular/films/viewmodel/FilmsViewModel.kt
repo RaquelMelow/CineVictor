@@ -23,17 +23,17 @@ class FilmsViewModel(
 
     fun loadMovies() {
         viewModelScope.launch {
-            val response = repository.getPopularMovies(currentPage)
-            when (val result = repository.getPopularMovies()) {
-                is ApiResult.Error -> {
+            repository.getPopularMovies().collect { result ->
+                when(result) {
+                    is ApiResult.Error -> {
 
+                    }
+                    is ApiResult.Success -> {
+                        _popularOfTheWeek.value += result.data
+                        currentPage++
+                    }
                 }
 
-                is ApiResult.Success -> {
-                    _popularOfTheWeek.value += result.data
-                    currentPage++
-
-                }
             }
         }
     }
