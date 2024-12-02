@@ -44,6 +44,7 @@ fun LoginScreen(
     viewModel: LoginViewModel = koinViewModel()
 ) {
     val email by viewModel.email.collectAsState()
+    val isEmailValid by viewModel.isEmailValid.collectAsState()
     val password by viewModel.password.collectAsState()
     val isError by viewModel.isError.collectAsState()
     val isLoginVisible by viewModel.isLoginVisible.collectAsState()
@@ -124,6 +125,16 @@ fun LoginScreen(
                         errorLabelColor = Color.Red
                     )
                 )
+
+                if (!isEmailValid) {
+                    Text(
+                        text = "Por favor, introduce un correo electrónico válido.",
+                        color = Color.Red,
+                        fontSize = 12.sp,
+                        modifier = Modifier.padding(start = 8.dp, top = 4.dp)
+                    )
+                }
+
 
                 Spacer(modifier = Modifier.height(8.dp))
 

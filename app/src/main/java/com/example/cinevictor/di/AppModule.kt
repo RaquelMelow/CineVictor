@@ -1,7 +1,9 @@
 import android.content.Context
 import android.net.ConnectivityManager
+import androidx.room.Room
 import com.example.cinevictor.core.framework.network.interceptors.ConnectivityInterceptor
 import com.example.cinevictor.core.framework.network.retrofit.MovieService
+import com.example.cinevictor.data.local.database.AppDatabase
 import com.example.cinevictor.data.repository.MovieRepository
 import com.example.cinevictor.presentation.features.films.viewmodel.FilmsViewModel
 import com.example.cinevictor.presentation.features.login.viewmodel.LoginViewModel
@@ -13,6 +15,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
@@ -71,4 +74,16 @@ val coreModule = module {
     single {
         get<Retrofit>().create(MovieService::class.java)
     }
+
+    single {
+        Room.databaseBuilder(
+            androidApplication(),
+            AppDatabase::class.java,
+            "cine_victor.db"
+        )
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+    single { get<AppDatabase>().movieDao() }
 }

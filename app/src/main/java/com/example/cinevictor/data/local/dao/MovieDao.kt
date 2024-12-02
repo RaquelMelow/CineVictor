@@ -4,20 +4,21 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.example.cinevictor.data.local.database.MovieRoom
+import com.example.cinevictor.data.local.database.MovieEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao {
     @Insert
-    suspend fun insertMovie(movie: MovieRoom)
+    suspend fun insertMovie(movie: MovieEntity)
 
     @Update
-    suspend fun updateMovie(movie: MovieRoom)
+    suspend fun updateMovie(movie: MovieEntity)
 
     @Query("SELECT * FROM movies WHERE uid = :id")
-    suspend fun getMovieById(id: Int): MovieRoom?
+    suspend fun getMovieById(id: Int): MovieEntity?
 
 
     @Query("SELECT * FROM movies")
-    suspend fun getAllMovies(): List<MovieRoom>
+    fun getAllMovies(): Flow<List<MovieEntity>>
 }
