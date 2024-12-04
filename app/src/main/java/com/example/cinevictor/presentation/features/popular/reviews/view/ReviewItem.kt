@@ -23,12 +23,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.example.cinevictor.presentation.features.popular.reviews.model.ReviewDatalLocal
 
 @Composable
-fun ReviewItem(reviewData: ReviewDatalLocal) {
+fun ReviewItem(review: ReviewWithMovie) {
     Card(
-       colors = CardDefaults.cardColors(MaterialTheme.colorScheme.background)
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.background)
     ) {
         Column(modifier = Modifier.padding(top = 10.dp)) {
 
@@ -37,70 +36,63 @@ fun ReviewItem(reviewData: ReviewDatalLocal) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = reviewData.movie.title,
+                    text = review.movieTitle,
                     style = MaterialTheme.typography.titleMedium
                 )
 
                 Text(
-                    text = "${reviewData.movie.year}",
+                    text = "${review.movieReleaseDate}",
                     style = MaterialTheme.typography.bodyLarge
-                    )
-
+                )
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                Text(
-                    text = reviewData.user.name,
-                    modifier = Modifier.padding(top = 2.dp),
-                    style = MaterialTheme.typography.bodyLarge
+                review.authorAvatar?.let {
+                    Text(
+                        text = review.authorUsername ?: "Unknown",
+                        modifier = Modifier.padding(top = 2.dp),
+                        style = MaterialTheme.typography.bodyLarge
                     )
-
+                }
 
                 Image(
-                    painter = painterResource(id = reviewData.user.image),
+                    painter = painterResource(id = R.drawable.placeholder_avatar), // Reemplaza con el ID correcto
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .padding(start = 2.dp)
-                        .size(width = 20.dp, height = 20.dp)
+                        .size(20.dp)
                         .border(1.dp, Color(0xFFAFB3D0), CircleShape)
                         .clip(CircleShape)
                 )
             }
 
             Text(
-                "${reviewData.rating}/10",
-                modifier = Modifier
-                    .padding(2.dp),
+                text = "${review.rating?.toInt() ?: 0}/10",
+                modifier = Modifier.padding(2.dp),
                 style = MaterialTheme.typography.labelSmall
-
             )
-
 
             Row {
                 Image(
-                    painter = painterResource(id = reviewData.movie.image),
+                    painter = painterResource(id = R.drawable.placeholder_poster), // Reemplaza con el ID correcto
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .size(width = 70.dp, height = 100.dp)
+                        .size(70.dp, 100.dp)
                         .border(1.dp, Color.White)
                 )
 
-
                 Text(
-                    text = reviewData.comment,
+                    text = review.content,
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier
                         .align(Alignment.Top)
-                        .padding(start = 2.dp),
+                        .padding(start = 2.dp)
                 )
-
-
             }
 
             HorizontalDivider(
-               // color = Color.Gray,
                 thickness = 1.dp,
                 modifier = Modifier.padding(vertical = 8.dp)
             )

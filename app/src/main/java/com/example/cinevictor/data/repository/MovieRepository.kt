@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.flow
 
 class MovieRepository(
     private val service: MovieService,
-    private val movieDao: MovieDao
+    private val movieDao: MovieDao,
 ) {
 
     fun getPopularMovies(page: Int = 1): Flow<ApiResult<List<Movie>, DataError>> {
@@ -81,6 +81,5 @@ class MovieRepository(
             ApiResult.Error(DataError.Network.UNKNOWN)
         }
     }
-
 }
 
