@@ -59,6 +59,11 @@ fun RegisterFormScreen(
     val isPasswordValid by viewModel.isPasswordValid.collectAsState()
     val doPasswordsMatch by viewModel.doPasswordsMatch.collectAsState()
     val showDatePicker by viewModel.showDatePicker.collectAsState()
+    val emailVerificationSent by viewModel.emailVerificationSent.collectAsState()
+
+    if(emailVerificationSent) {
+        onRegisterSuccess()
+    }
 
     val backgroundImage = painterResource(id = R.drawable.registercinevictorconlogo)
 
@@ -232,13 +237,30 @@ fun RegisterFormScreen(
             ) {
                 Text("Registrarse", fontSize = 16.sp, color = Color.Black)
             }
+
+            // Aquí mostramos el mensaje de verificación de correo
+            if (emailVerificationSent) {
+                Text(
+                    text = "¡Correo de verificación enviado! Por favor revisa tu bandeja de entrada.",
+                    color = Color.Green,
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(top = 16.dp)
+                )
+            } else if (isError) {
+                Text(
+                    text = "Ocurrió un error. Intenta nuevamente.",
+                    color = Color.Red,
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(top = 16.dp)
+                )
+            }
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
 fun RegisterFormScreenPreview() {
     RegisterFormScreen(onRegisterSuccess = {})
 }
+

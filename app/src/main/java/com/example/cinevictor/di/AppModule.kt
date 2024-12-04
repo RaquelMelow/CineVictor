@@ -30,8 +30,8 @@ val presentationModule = module {
     viewModelOf(::MovieDetailViewModel)
     viewModelOf(::ListsViewModel)
     viewModelOf(::ReviewsViewModel)
-    viewModelOf(::LoginViewModel)
     viewModelOf(::RegisterViewModel)
+    viewModelOf(::LoginViewModel)
 }
 
 val dataModule = module {
