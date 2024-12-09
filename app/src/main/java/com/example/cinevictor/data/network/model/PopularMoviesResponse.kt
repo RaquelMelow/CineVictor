@@ -13,7 +13,9 @@ data class PopularMoviesResponse(
 )
 
 fun List<MovieResponse>.toDomainList(): List<Movie> {
-    return this.map { movie -> movie.toDomain() }
+    return this.map { movie ->
+        movie.toDomain()
+    }
 }
 
 fun MovieResponse.toDomain(): Movie {
@@ -21,7 +23,10 @@ fun MovieResponse.toDomain(): Movie {
         id = id,
         title = title,
         overview = overview,
-        posterPath = "https://image.tmdb.org/t/p/w500$posterPath"
+        posterPath = "https://image.tmdb.org/t/p/w500$posterPath",
+        releaseDate = releaseDate,
+        genreIds = genreIds,
+        originCountry = ""
     )
 }
 

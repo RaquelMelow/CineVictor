@@ -5,4 +5,7 @@ data class Movie(
     val title: String,
     val overview: String,
     val posterPath: String?,
+    val releaseDate: String,
+    val genreIds: List<Int>,
+    val originCountry: String,
 )

@@ -21,4 +21,11 @@ interface MovieDao {
 
     @Query("SELECT * FROM movies")
     fun getAllMovies(): Flow<List<MovieEntity>>
+
+    @Query("SELECT posterUrl FROM movies WHERE genres = :genreId")
+    suspend fun getImageUrlsByGenre(genreId: Int): List<String>
 }
+
+
+
+

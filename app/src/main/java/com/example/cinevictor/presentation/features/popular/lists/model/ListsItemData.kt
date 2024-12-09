@@ -9,7 +9,7 @@ import com.example.cinevictor.R
 data class ListsItemData(
     val title: String?,
     val abstract: String?,
-    val movieImages: List<Int>,
+    val movieImages: List<String>,
     val concept: String?,
     val friend: String,
     @DrawableRes val image: Int
@@ -54,3 +54,4 @@ val imageList3 = listOf(
     R.drawable.johnwick02,
     R.drawable.thematrixresurrections
 )
+
