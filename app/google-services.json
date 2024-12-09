@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "516300672300",
+    "project_id": "cinevictor-437f2",
+    "storage_bucket": "cinevictor-437f2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516300672300:android:59fe4136c1c63023557089",
+        "android_client_info": {
+          "package_name": "com.example.cinevictor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtyH5B2Gdx_ojzv65uarMHl7RtnTEZL78"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
