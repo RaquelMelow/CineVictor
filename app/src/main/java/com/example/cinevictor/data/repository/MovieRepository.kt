@@ -12,9 +12,14 @@ import com.example.cinevictor.domain.model.MovieDetailsCredit
 import com.example.cinevictor.domain.util.ApiResult
 import com.example.cinevictor.domain.util.DataError
 import com.example.cinevictor.domain.util.map
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 
 class MovieRepository(
     private val service: MovieService,
@@ -36,8 +41,6 @@ class MovieRepository(
                             movieDao.insertMovie(it.toEntity())
                         }
 
-                        //movieDao.insertMovies(result.data.map { it.toEntity() })
-
                         emit(ApiResult.Success(result.data))
                     }
 
@@ -55,7 +58,6 @@ class MovieRepository(
             service.getPopularMovies(BuildConfig.API_KEY, page)
         }.map {
             it.results.toDomainList()
-
         }
     }
 
@@ -64,7 +66,6 @@ class MovieRepository(
             service.getDetailCreditMovie(id, BuildConfig.API_KEY)
         }.map {
             it.toDomain()
-
         }
     }
 
@@ -82,5 +83,8 @@ class MovieRepository(
         }
     }
 
+    suspend fun getPostersByGenre(genderId: Int): List<String> {
+        return movieDao.getImageUrlsByGenre(genderId)
+    }
 }
 

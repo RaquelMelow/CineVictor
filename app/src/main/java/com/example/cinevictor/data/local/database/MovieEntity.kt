@@ -12,28 +12,30 @@ data class MovieEntity(
     @PrimaryKey val uid: Int,
     @ColumnInfo(name = "name") val name: String?,
     @ColumnInfo(name = "posterUrl") val posterUrl: String?,
-    @ColumnInfo(name = "overview") val overview: String?
+    @ColumnInfo(name = "overview") val overview: String?,
+    @ColumnInfo(name = "releasedate") val releaseDate: String,
+    @ColumnInfo(name = "genres") val genres: Int,
+    @ColumnInfo(name = "origin_country") val originCountry: String
 )
 
 fun Movie.toEntity() = MovieEntity(
     uid = id,
     name = title,
     posterUrl = posterPath,
-    overview = overview
+    overview = overview,
+    releaseDate = releaseDate,
+    genres = genreIds.first(),
+    originCountry = originCountry
 )
 
 fun MovieEntity.toDomain() = Movie(
     id = uid,
     title = name ?: "",
     posterPath = posterUrl ?: "",
-    overview = overview ?: ""
-)
-
-fun MovieEntity.toMovieDomain() = Movie(
-    id = uid,
-    title = name ?: "",
-    posterPath = posterUrl ?: "",
-    overview = overview ?: ""
+    overview = overview ?: "",
+    releaseDate = releaseDate,
+    genreIds = listOf(genres),
+    originCountry = originCountry
 )
 
 fun Cast.toCastDomain() = CastMember(

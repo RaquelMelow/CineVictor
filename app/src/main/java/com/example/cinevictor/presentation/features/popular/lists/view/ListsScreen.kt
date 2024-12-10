@@ -1,6 +1,7 @@
 package com.example.cinevictor.presentation.features.popular.lists.view
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -33,14 +35,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.cinevictor.presentation.features.popular.lists.model.ListsItemData
 import com.example.cinevictor.presentation.features.popular.lists.viewmodel.ListsViewModel
+import org.koin.androidx.compose.koinViewModel
+import kotlin.random.Random
 
 
 @Composable
-fun ListsScreen() {
-
-    val viewModel = ListsViewModel()
+fun ListsScreen(
+    viewModel: ListsViewModel = koinViewModel()
+) {
 
     val items by viewModel.listsItems.collectAsState()
 
@@ -113,6 +118,7 @@ fun ListsItem(data: ListsItemData) {
         ) {
             items(data.movieImages) { imageRes ->
                 MovieRowItem(imageRes)
+
             }
         }
 
@@ -136,21 +142,39 @@ fun ListsItem(data: ListsItemData) {
     }
 }
 
+// Genera un color aleatorio en el borde dde la Card
+val borderColor = Color(
+    red = Random.nextFloat(),
+    green = Random.nextFloat(),
+    blue = Random.nextFloat(),
+    alpha = 1f
+)
+
+
 @Composable
-fun MovieRowItem(imageRes: Int) {
+fun MovieRowItem(posterPath: String) {
     Card(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 0.dp
-        )
-    ) {
-        Image(
-            painter = painterResource(id = imageRes),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
+        ),
             modifier = Modifier
-                .size(150.dp)
-                .padding(2.dp)// Ajusta el tamaño según sea necesario
-                .clip(RoundedCornerShape(5.dp))
+            .border( width = 4.dp,
+            color = borderColor,
+            shape = RoundedCornerShape(4.dp),
+
+        //border = BorderStroke(4.dp, color = Pink40)
+        )
+
+    ) {
+        AsyncImage(
+            model = posterPath,
+            contentDescription = null,
+            contentScale = ContentScale.Fit,
+            modifier = Modifier
+                .width(120.dp)
+                .padding(2.dp)
+                .clip(RoundedCornerShape(2.dp))
+
         )
     }
 }

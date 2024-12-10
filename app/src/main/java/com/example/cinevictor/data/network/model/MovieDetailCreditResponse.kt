@@ -113,8 +113,6 @@ fun List<Crew>?.getDirectorName(): String? {
     return this?.find { it.job.equals("Director", ignoreCase = true) }?.name
 }
 
-
-
 fun MovieDetailCreditResponse.toDomain(): MovieDetailsCredit {
     return MovieDetailsCredit(
         id = id,
