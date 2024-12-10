@@ -13,7 +13,7 @@ data class MovieEntity(
     @ColumnInfo(name = "name") val name: String?,
     @ColumnInfo(name = "posterUrl") val posterUrl: String?,
     @ColumnInfo(name = "overview") val overview: String?,
-    @ColumnInfo(name = "releasedate") val releaseDate: String,
+    @ColumnInfo(name = "release_date") val releaseDate: String,
     @ColumnInfo(name = "genres") val genres: Int,
     @ColumnInfo(name = "origin_country") val originCountry: String
 )
