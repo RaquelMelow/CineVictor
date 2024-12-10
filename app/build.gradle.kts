@@ -63,13 +63,10 @@ android {
 
 dependencies {
 
-    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
-    implementation("com.google.firebase:firebase-auth")
-    implementation("com.google.android.gms:play-services-auth:21.0.0")
-
-
-    implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
-    implementation("com.google.firebase:firebase-analytics")
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.play.services.auth)
+    implementation(libs.firebase.analytics)
     
 
     implementation(libs.koin.core)
@@ -78,7 +75,7 @@ dependencies {
     implementation(libs.koin.androidx.workmanager)
 
     //Coil
-    implementation(libs.coil.compose)
+    implementation(libs.bundles.coil)
 
 
     implementation(libs.androidx.room.runtime)
@@ -108,8 +105,6 @@ dependencies {
     implementation(libs.logging.interceptor)
 
     //Serialization
-    implementation(libs.ktor.client.serialization)
-    implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.androidx.lifecycle.livedata.ktx)

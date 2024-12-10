@@ -19,8 +19,11 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -165,11 +168,15 @@ fun RegisterFormScreen(
 
                     Spacer(modifier = Modifier.width(10.dp))
 
-                    Icon(
-                        imageVector = Icons.Default.DateRange,
-                        contentDescription = "Seleccionar fecha",
-                        tint = Color.White
-                    )
+                    IconButton(onClick = {
+                        viewModel.onShowDatePickerModal(!showDatePicker)
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.DateRange,
+                            contentDescription = "Seleccionar fecha",
+                            tint = Color.White
+                        )
+                    }
                 }
             }
 
@@ -257,6 +264,36 @@ fun RegisterFormScreen(
         }
     }
 }
+
+@Composable
+fun getTextFieldColors(
+    containerColor: Color = Color.Black,
+    textColor: Color = Color.White,
+    indicatorColor: Color = Color.White,
+    unfocusedIndicatorColor: Color = Color.Gray,
+    cursorColor: Color = Color.White,
+    errorColor: Color = Color.Red,
+    focusedLabelColor: Color = Color.White,
+    unfocusedLabelColor: Color = Color.Gray,
+    errorLabelColor: Color = Color.Red
+): TextFieldColors {
+    return TextFieldDefaults.colors(
+        focusedContainerColor = containerColor,
+        unfocusedContainerColor = containerColor,
+        errorContainerColor = containerColor,
+        focusedTextColor = textColor,
+        unfocusedTextColor = textColor,
+        errorTextColor = errorColor,
+        focusedIndicatorColor = indicatorColor,
+        unfocusedIndicatorColor = unfocusedIndicatorColor,
+        errorIndicatorColor = errorColor,
+        cursorColor = cursorColor,
+        focusedLabelColor = focusedLabelColor,
+        unfocusedLabelColor = unfocusedLabelColor,
+        errorLabelColor = errorLabelColor
+    )
+}
+
 
 @Preview(showBackground = true)
 @Composable

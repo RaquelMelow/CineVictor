@@ -72,6 +72,10 @@ class RegisterViewModel(private val authRepository: AuthRepository) : ViewModel(
         _birthDate.value = newDate
     }
 
+    fun onShowDatePickerModal(show: Boolean) {
+        _showDatePicker.value = show
+    }
+
     fun onRegister() {
         if (isFormValid()) {
             val auth = FirebaseAuth.getInstance()
