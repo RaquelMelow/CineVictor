@@ -8,11 +8,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.automirrored.outlined.List
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.Create
 import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Search
@@ -64,22 +66,37 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CineVictorNavigationDrawer(
-    navigateToDetail: (id: Int) -> Unit
+    navigateToDetail: (id: Int) -> Unit,
+    isAuthorized: Boolean,
+    onLoginClick: () -> Unit,
+    onRegisterClick: () -> Unit
 ) {
-    val items = listOf(
-        NavigationItems("Popular", Icons.Filled.Menu, Icons.Outlined.Menu),
-        NavigationItems("Search", Icons.Filled.Search, Icons.Outlined.Search),
-        NavigationItems("Profile", Icons.Filled.Person, Icons.Outlined.Person),
-        NavigationItems("Settings", Icons.Filled.Settings, Icons.Outlined.Settings),
-        NavigationItems("List", Icons.AutoMirrored.Filled.List, Icons.AutoMirrored.Outlined.List),
-        NavigationItems("Reviews", Icons.Filled.Star, Icons.Outlined.Star)
-    )
+
+    val items = if (isAuthorized) {
+        listOf(
+            NavigationItems("Popular", Icons.Filled.Menu, Icons.Outlined.Menu),
+            NavigationItems("Search", Icons.Filled.Search, Icons.Outlined.Search),
+            NavigationItems("Profile", Icons.Filled.Person, Icons.Outlined.Person),
+            NavigationItems("Settings", Icons.Filled.Settings, Icons.Outlined.Settings),
+            NavigationItems("List", Icons.AutoMirrored.Filled.List, Icons.AutoMirrored.Outlined.List),
+            NavigationItems("Reviews", Icons.Filled.Star, Icons.Outlined.Star)
+        )
+    } else {
+        listOf(
+            NavigationItems("Login", Icons.Filled.Person, Icons.Outlined.Person),
+            NavigationItems("Register", Icons.Filled.Create, Icons.Outlined.Create)
+        )
+    }
 
     var selectedItemIndex by rememberSaveable { mutableStateOf(0) }
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
-    val tabs = listOf("FILMS", "REVIEWS", "LISTS", "JOURNAL")
+    val tabs = if (isAuthorized) {
+        listOf("FILMS", "REVIEWS", "LISTS", "JOURNAL")
+    } else {
+        listOf("FILMS", "LISTS", "JOURNAL")
+    }
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -89,7 +106,6 @@ fun CineVictorNavigationDrawer(
                 drawerShape = RectangleShape,
                 drawerContentColor = Color.White
             ) {
-
 
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -108,6 +124,13 @@ fun CineVictorNavigationDrawer(
                             selectedItemIndex = index
                             scope.launch {
                                 drawerState.close()
+                            }
+
+                            if (!isAuthorized) {
+                                when (item.title) {
+                                    "Login" -> onLoginClick()
+                                    "Register" -> onRegisterClick()
+                                }
                             }
                         },
                         colors = NavigationDrawerItemDefaults.colors(
@@ -188,7 +211,10 @@ fun CineVictorNavigationDrawer(
 
                 when (selectedTab) {
                     0 -> FilmsScreen(navigateToDetail = navigateToDetail)
-                    1 -> ReviewsScreen()
+                    1 -> if (isAuthorized) {
+                        ReviewsScreen()
+                    } else {
+                    }
                     2 -> ListsScreen()
                     3 -> {
                         val journalViewModel: JournalViewModel = viewModel()

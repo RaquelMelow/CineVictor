@@ -38,7 +38,7 @@ fun AppNavHost(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = AppRoute.Login
+        startDestination = AppRoute.Popular
     ) {
         composable<AppRoute.Login> {
             LoginScreen(
@@ -60,10 +60,19 @@ fun AppNavHost(
         }
 
         composable<AppRoute.Popular> {
+            val isAuthorized = false
             CineVictorNavigationDrawer(
+                isAuthorized = isAuthorized,
                 navigateToDetail = { movieId ->
                 navController.navigate(AppRoute.Detail(movieId))
-            })
+            },
+                onLoginClick = {
+                    navController.navigate(AppRoute.Login)
+                },
+                onRegisterClick = {
+                    navController.navigate(AppRoute.Register)
+                }
+            )
         }
 
         composable<AppRoute.Detail> { backStackEntry ->
