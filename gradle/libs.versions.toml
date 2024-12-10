@@ -1,6 +1,5 @@
 [versions]
 agp = "8.6.1"
-coilCompose = "2.7.0"
 kotlin = "2.0.20"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -23,18 +22,13 @@ firebaseCrashlyticsBuildtools = "3.0.2"
 supportAnnotations = "28.0.0"
 ksp = "2.0.20-1.0.25"
 coil = "2.7.0"
-ktor = "2.3.11"
 navigationRuntimeKtx = "2.8.4"
 navigationCompose = "2.8.4"
 kotlinSerialization = "1.6.3"
 koin = "3.5.6"
 composeMaterial = "1.4.0"
 roomCommon = "2.6.1"
-
-
-
-
-
+firebaseBom = "33.7.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
