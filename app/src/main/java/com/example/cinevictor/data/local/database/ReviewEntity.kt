@@ -27,7 +27,7 @@ data class ReviewWithMovie(
     val rating: Double?,
     val authorAvatar: String?,
     val movieTitle: String,
-    val movieReleaseDate: String,
+    val releaseDate: String,
     val moviePosterUrl: String
 )
 

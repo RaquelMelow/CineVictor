@@ -46,7 +46,7 @@ class ReviewRepository(
 
                     val reviewsWithMovies = result.data.map { review ->
                         val movie = movieDao.getMovieById(movieId)
-                        mapReviewWithMovie(review, movie)
+                        mapReviewWithMovie(review.toEntity(movieId), movie)
                     }
 
                     emit(ApiResult.Success(reviewsWithMovies))
@@ -67,7 +67,7 @@ class ReviewRepository(
             rating = reviewEntity.rating,
             authorAvatar = reviewEntity.avatarPath,
             movieTitle = movieEntity?.name ?: "Unknown",
-            movieReleaseDate = movieEntity?.releaseDate ?: "Unknown",
+            releaseDate = movieEntity?.releaseDate ?: "Unknown",
             moviePosterUrl = movieEntity?.posterUrl ?: ""
         )
     }

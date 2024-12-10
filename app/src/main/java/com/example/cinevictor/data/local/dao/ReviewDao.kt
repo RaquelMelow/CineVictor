@@ -25,12 +25,12 @@ interface ReviewDao {
     @Query("""
         SELECT 
             r.uid AS reviewId,
-            r.author AS reviewAuthor,
-            r.content AS reviewContent,
+            r.author AS author,
+            r.content AS content,
             r.rating AS reviewRating,
             r.avatar_path AS authorAvatar,
             m.name AS movieTitle,
-            m.release_date AS movieYear,
+            m.release_date AS releaseDate,
             m.posterUrl AS moviePosterUrl
         FROM reviews r
         LEFT JOIN movies m ON r.movie_id = m.uid

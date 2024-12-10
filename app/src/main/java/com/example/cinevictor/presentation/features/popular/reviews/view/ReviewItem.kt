@@ -23,6 +23,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.example.cinevictor.R
+import com.example.cinevictor.data.local.database.ReviewWithMovie
 
 @Composable
 fun ReviewItem(review: ReviewWithMovie) {
@@ -41,7 +43,7 @@ fun ReviewItem(review: ReviewWithMovie) {
                 )
 
                 Text(
-                    text = "${review.movieReleaseDate}",
+                    text = review.releaseDate,
                     style = MaterialTheme.typography.bodyLarge
                 )
 
@@ -49,14 +51,14 @@ fun ReviewItem(review: ReviewWithMovie) {
 
                 review.authorAvatar?.let {
                     Text(
-                        text = review.authorUsername ?: "Unknown",
+                        text = review.author ?: "Unknown",
                         modifier = Modifier.padding(top = 2.dp),
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
 
                 Image(
-                    painter = painterResource(id = R.drawable.placeholder_avatar), // Reemplaza con el ID correcto
+                    painter = painterResource(id = R.drawable.avatar),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -75,7 +77,7 @@ fun ReviewItem(review: ReviewWithMovie) {
 
             Row {
                 Image(
-                    painter = painterResource(id = R.drawable.placeholder_poster), // Reemplaza con el ID correcto
+                    painter = painterResource(id = R.drawable.poster),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier

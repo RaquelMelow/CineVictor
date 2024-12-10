@@ -23,8 +23,8 @@ import com.example.cinevictor.presentation.ui.theme.CineTemita
 fun ReviewsScreen(
     viewModel: ReviewsViewModel = viewModel()
 ) {
-    val popularReviews by viewModel.popularReviews.collectAsState()
 
+    val popularReviews by viewModel.popularReviews.collectAsState()
 
     Column(
         Modifier
@@ -38,9 +38,11 @@ fun ReviewsScreen(
         )
 
 
-        LazyColumn {
-            items(popularReviews) { review ->
-                ReviewItem(review)
+        popularReviews?.let {
+            LazyColumn {
+                items(it) { review ->
+                    ReviewItem(review)
+                }
             }
         }
     }
