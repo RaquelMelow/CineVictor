@@ -12,6 +12,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
+class A
+
+class MyViewModel(a: A): ViewModel()
+
 class JournalViewModel(
     private val service: MovieService,
     private val movieDao: MovieDao

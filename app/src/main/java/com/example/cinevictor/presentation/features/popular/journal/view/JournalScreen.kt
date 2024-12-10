@@ -35,38 +35,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.cinevictor.domain.model.Movie
-import com.example.cinevictor.presentation.features.films.viewmodel.FilmsViewModel
-import org.koin.androidx.compose.koinViewModel
 
 // Construccion de la columna
 
 @Composable
 fun JournalScreen(
-    viewModel: FilmsViewModel = koinViewModel(),
     state: LazyListState,
     movies: List<Movie>,
     selectedMovie: Movie?,
     onClick: (movie: Movie) -> Unit,
     onDismiss: () -> Unit
 ) {
-    /*    var isLoading by remember { mutableStateOf(true) }
-
-    LaunchedEffect(Unit) {
-        // Simula un tiempo de carga
-        kotlinx.coroutines.delay(2000)
-        isLoading = false
-    }
-
-    if (isLoading) {
-        // Mostrar indicador de carga
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            CircularProgressIndicator()
-        }
-    } else {*/
-
     Column(
         Modifier
             .fillMaxSize()
@@ -147,13 +126,14 @@ fun JournalScreen(
             )
         }
 }
-//}
+
 
 
 @PreviewScreenSizes
 @Composable
 fun PreviewJournalScreen() {
     Surface {
+
         //JournalScreen()
     }
 }

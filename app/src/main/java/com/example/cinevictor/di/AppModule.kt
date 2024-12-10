@@ -8,6 +8,7 @@ import com.example.cinevictor.data.repository.MovieRepository
 import com.example.cinevictor.presentation.features.films.viewmodel.FilmsViewModel
 import com.example.cinevictor.presentation.features.login.viewmodel.LoginViewModel
 import com.example.cinevictor.presentation.features.popular.details.viewmodel.MovieDetailViewModel
+import com.example.cinevictor.presentation.features.popular.journal.viewmodel.JournalViewModel
 import com.example.cinevictor.presentation.features.popular.lists.viewmodel.ListsViewModel
 import com.example.cinevictor.presentation.features.popular.reviews.viewModel.ReviewsViewModel
 import com.example.cinevictor.presentation.features.register.viewmodel.RegisterViewModel
@@ -32,6 +33,7 @@ val presentationModule = module {
     viewModelOf(::ReviewsViewModel)
     viewModelOf(::LoginViewModel)
     viewModelOf(::RegisterViewModel)
+    viewModelOf(::JournalViewModel)
 }
 
 val dataModule = module {

@@ -17,8 +17,8 @@ class ListsViewModel(
     val listsItems: StateFlow<List<ListsItemData>> = _listsItems
 
     // Elementos fijos pero flotantes que el view model toma para mostrar en el ListItemData.
-    // Próximamente estos datos serán index
-    // ados a partir de la respuesta que nos de la API de TMDB
+    // Próximamente estos datos serán indexados
+    // a partir de la respuesta que nos de la API de TMDB
     init {
 
         viewModelScope.launch {
