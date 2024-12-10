@@ -4,6 +4,7 @@ import androidx.room.Room
 import com.example.cinevictor.core.framework.network.interceptors.ConnectivityInterceptor
 import com.example.cinevictor.core.framework.network.retrofit.MovieService
 import com.example.cinevictor.data.local.database.AppDatabase
+import com.example.cinevictor.data.repository.AuthRepository
 import com.example.cinevictor.data.repository.MovieRepository
 import com.example.cinevictor.presentation.features.films.viewmodel.FilmsViewModel
 import com.example.cinevictor.presentation.features.login.viewmodel.LoginViewModel
@@ -30,12 +31,13 @@ val presentationModule = module {
     viewModelOf(::MovieDetailViewModel)
     viewModelOf(::ListsViewModel)
     viewModelOf(::ReviewsViewModel)
-    viewModelOf(::LoginViewModel)
     viewModelOf(::RegisterViewModel)
+    viewModelOf(::LoginViewModel)
 }
 
 val dataModule = module {
     singleOf(::MovieRepository)
+    singleOf(::AuthRepository)
 }
 
 val coreModule = module {

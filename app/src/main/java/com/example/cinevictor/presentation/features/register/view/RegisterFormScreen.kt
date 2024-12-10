@@ -19,8 +19,11 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -59,6 +62,11 @@ fun RegisterFormScreen(
     val isPasswordValid by viewModel.isPasswordValid.collectAsState()
     val doPasswordsMatch by viewModel.doPasswordsMatch.collectAsState()
     val showDatePicker by viewModel.showDatePicker.collectAsState()
+    val emailVerificationSent by viewModel.emailVerificationSent.collectAsState()
+
+    if(emailVerificationSent) {
+        onRegisterSuccess()
+    }
 
     val backgroundImage = painterResource(id = R.drawable.registercinevictorconlogo)
 
@@ -160,11 +168,15 @@ fun RegisterFormScreen(
 
                     Spacer(modifier = Modifier.width(10.dp))
 
-                    Icon(
-                        imageVector = Icons.Default.DateRange,
-                        contentDescription = "Seleccionar fecha",
-                        tint = Color.White
-                    )
+                    IconButton(onClick = {
+                        viewModel.onShowDatePickerModal(!showDatePicker)
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.DateRange,
+                            contentDescription = "Seleccionar fecha",
+                            tint = Color.White
+                        )
+                    }
                 }
             }
 
@@ -232,8 +244,54 @@ fun RegisterFormScreen(
             ) {
                 Text("Registrarse", fontSize = 16.sp, color = Color.Black)
             }
+
+            // Aquí mostramos el mensaje de verificación de correo
+            if (emailVerificationSent) {
+                Text(
+                    text = "¡Correo de verificación enviado! Por favor revisa tu bandeja de entrada.",
+                    color = Color.Green,
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(top = 16.dp)
+                )
+            } else if (isError) {
+                Text(
+                    text = "Ocurrió un error. Intenta nuevamente.",
+                    color = Color.Red,
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(top = 16.dp)
+                )
+            }
         }
     }
+}
+
+@Composable
+fun getTextFieldColors(
+    containerColor: Color = Color.Black,
+    textColor: Color = Color.White,
+    indicatorColor: Color = Color.White,
+    unfocusedIndicatorColor: Color = Color.Gray,
+    cursorColor: Color = Color.White,
+    errorColor: Color = Color.Red,
+    focusedLabelColor: Color = Color.White,
+    unfocusedLabelColor: Color = Color.Gray,
+    errorLabelColor: Color = Color.Red
+): TextFieldColors {
+    return TextFieldDefaults.colors(
+        focusedContainerColor = containerColor,
+        unfocusedContainerColor = containerColor,
+        errorContainerColor = containerColor,
+        focusedTextColor = textColor,
+        unfocusedTextColor = textColor,
+        errorTextColor = errorColor,
+        focusedIndicatorColor = indicatorColor,
+        unfocusedIndicatorColor = unfocusedIndicatorColor,
+        errorIndicatorColor = errorColor,
+        cursorColor = cursorColor,
+        focusedLabelColor = focusedLabelColor,
+        unfocusedLabelColor = unfocusedLabelColor,
+        errorLabelColor = errorLabelColor
+    )
 }
 
 
@@ -242,3 +300,4 @@ fun RegisterFormScreen(
 fun RegisterFormScreenPreview() {
     RegisterFormScreen(onRegisterSuccess = {})
 }
+
