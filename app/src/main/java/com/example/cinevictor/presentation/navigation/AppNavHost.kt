@@ -29,9 +29,9 @@ fun AppNavHost(
     ) {
         composable<AppRoute.Login> {
             LoginScreen(
-                onLoginSuccess = {
-                navController.navigate(AppRoute.Popular)
-            },
+                navigationToHome = {
+                    navController.navigate(AppRoute.Popular)
+                },
                 navigationToRegister = {
                     navController.navigate(AppRoute.Register)
                 }
@@ -41,7 +41,7 @@ fun AppNavHost(
         composable<AppRoute.Register> {
             RegisterFormScreen(
                 onRegisterSuccess = {
-
+                    navController.navigate(AppRoute.Login)
                 },
             )
         }
@@ -49,8 +49,9 @@ fun AppNavHost(
         composable<AppRoute.Popular> {
             CineVictorNavigationDrawer(
                 navigateToDetail = { movieId ->
-                navController.navigate(AppRoute.Detail(movieId))
-            })
+                    navController.navigate(AppRoute.Detail(movieId))
+                },
+            )
         }
 
         composable<AppRoute.Detail> { backStackEntry ->

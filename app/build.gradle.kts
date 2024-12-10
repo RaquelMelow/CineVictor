@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
+    id("com.google.gms.google-services")
 
 }
 
@@ -62,13 +63,19 @@ android {
 
 dependencies {
 
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.play.services.auth)
+    implementation(libs.firebase.analytics)
+    
+
     implementation(libs.koin.core)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
     implementation(libs.koin.androidx.workmanager)
 
     //Coil
-    implementation(libs.coil.compose)
+    implementation(libs.bundles.coil)
 
 
     implementation(libs.androidx.room.runtime)
@@ -98,8 +105,6 @@ dependencies {
     implementation(libs.logging.interceptor)
 
     //Serialization
-    implementation(libs.ktor.client.serialization)
-    implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.androidx.lifecycle.livedata.ktx)
@@ -123,7 +128,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-
-
 
 }

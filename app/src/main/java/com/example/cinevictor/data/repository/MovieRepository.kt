@@ -36,8 +36,6 @@ class MovieRepository(
                             movieDao.insertMovie(it.toEntity())
                         }
 
-                        //movieDao.insertMovies(result.data.map { it.toEntity() })
-
                         emit(ApiResult.Success(result.data))
                     }
 
@@ -55,7 +53,6 @@ class MovieRepository(
             service.getPopularMovies(BuildConfig.API_KEY, page)
         }.map {
             it.results.toDomainList()
-
         }
     }
 
@@ -64,7 +61,6 @@ class MovieRepository(
             service.getDetailCreditMovie(id, BuildConfig.API_KEY)
         }.map {
             it.toDomain()
-
         }
     }
 
@@ -80,6 +76,10 @@ class MovieRepository(
         } catch (e: Exception) {
             ApiResult.Error(DataError.Network.UNKNOWN)
         }
+    }
+
+    suspend fun getPostersByGenre(genderId: Int): List<String> {
+        return movieDao.getImageUrlsByGenre(genderId)
     }
 }
 

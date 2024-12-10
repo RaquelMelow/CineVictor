@@ -12,7 +12,6 @@ import com.example.cinevictor.presentation.navigation.AppNavHost
 import com.example.cinevictor.presentation.ui.theme.CineTemita
 
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
