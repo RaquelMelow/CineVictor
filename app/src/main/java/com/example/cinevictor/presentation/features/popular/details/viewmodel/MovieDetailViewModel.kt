@@ -6,6 +6,7 @@ import com.example.cinevictor.data.repository.MovieRepository
 import com.example.cinevictor.domain.model.MovieDetailsCredit
 import com.example.cinevictor.domain.util.ApiResult
 import com.example.cinevictor.domain.util.toMessage
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -22,6 +23,7 @@ class MovieDetailViewModel(private val repository: MovieRepository) : ViewModel(
     private val _state = MutableStateFlow(MovieDetailState())
     val state: StateFlow<MovieDetailState> = _state
 
+
     fun loadMovieDetails(id: Int) {
         viewModelScope.launch {
 
@@ -30,6 +32,7 @@ class MovieDetailViewModel(private val repository: MovieRepository) : ViewModel(
             when (val response = repository.getMovieDetails(id)) {
                 is ApiResult.Error -> {
                     _state.update {
+                        delay(2000)
                         state.value.copy(
                             isLoading = false,
                             error = response.error.toMessage())

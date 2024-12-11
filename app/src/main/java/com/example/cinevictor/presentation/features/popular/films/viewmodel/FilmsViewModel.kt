@@ -17,17 +17,28 @@ class FilmsViewModel(
     private val _popularOfTheWeek = MutableStateFlow<List<Movie>>(emptyList())
     val popularOfTheWeek: StateFlow<List<Movie>> = _popularOfTheWeek
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
     init {
         loadMovies()
     }
 
     fun loadMovies() {
-        viewModelScope.launch {
-            repository.getPopularMovies().collect { result ->
-                when(result) {
-                    is ApiResult.Error -> {
 
+        if (_isLoading.value) return
+
+        viewModelScope.launch {
+
+        _isLoading.value = true
+
+        try {
+            repository.getPopularMovies().collect { result ->
+                when (result) {
+                    is ApiResult.Error -> {
+                        _isLoading.value = false
                     }
+
                     is ApiResult.Success -> {
                         _popularOfTheWeek.value += result.data
                         currentPage++
@@ -35,6 +46,11 @@ class FilmsViewModel(
                 }
 
             }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            _isLoading.value = false
+        }
         }
     }
 }

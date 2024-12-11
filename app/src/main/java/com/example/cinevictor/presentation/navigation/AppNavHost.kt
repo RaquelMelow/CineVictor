@@ -38,7 +38,7 @@ fun AppNavHost(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = AppRoute.Login
+        startDestination = AppRoute.Popular
     ) {
         composable<AppRoute.Login> {
             LoginScreen(

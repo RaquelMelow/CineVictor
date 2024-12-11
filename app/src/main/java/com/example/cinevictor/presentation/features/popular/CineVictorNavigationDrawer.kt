@@ -51,11 +51,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.cinevictor.domain.model.NavigationItems
 import com.example.cinevictor.presentation.features.popular.films.view.FilmsScreen
 import com.example.cinevictor.presentation.features.popular.journal.view.JournalRoute
-import com.example.cinevictor.presentation.features.popular.journal.viewmodel.JournalViewModel
 import com.example.cinevictor.presentation.features.popular.lists.view.ListsScreen
 import com.example.cinevictor.presentation.features.reviews.view.ReviewsScreen
 import kotlinx.coroutines.launch
@@ -191,8 +189,7 @@ fun CineVictorNavigationDrawer(
                     1 -> ReviewsScreen()
                     2 -> ListsScreen()
                     3 -> {
-                        val journalViewModel: JournalViewModel = viewModel()
-                        JournalRoute(journalViewModel)
+                        JournalRoute()
                     }
                 }
             }

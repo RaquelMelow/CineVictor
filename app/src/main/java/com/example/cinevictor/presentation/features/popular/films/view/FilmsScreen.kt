@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.cinevictor.domain.model.Movie
 import com.example.cinevictor.presentation.features.films.viewmodel.FilmsViewModel
+import com.example.cinevictor.presentation.ui.components.LoadingScreen
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -36,7 +37,7 @@ fun FilmsScreen(
     modifier: Modifier = Modifier,
     viewModel: FilmsViewModel = koinViewModel()
 ) {
-
+    val isLoading by viewModel.isLoading.collectAsState()
     val popularOfTheWeek by viewModel.popularOfTheWeek.collectAsState()
     val gridState = rememberLazyGridState()
 
@@ -49,6 +50,10 @@ fun FilmsScreen(
                     viewModel.loadMovies()
                 }
             }
+    }
+
+    if (isLoading) {
+        LoadingScreen()
     }
 
 

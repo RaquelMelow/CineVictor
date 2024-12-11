@@ -1,23 +1,47 @@
 package com.example.cinevictor.presentation.features.popular.lists.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.cinevictor.R
 import com.example.cinevictor.presentation.features.popular.lists.model.ListsItemData
 import com.example.cinevictor.presentation.features.popular.lists.model.imageList1
 import com.example.cinevictor.presentation.features.popular.lists.model.imageList2
 import com.example.cinevictor.presentation.features.popular.lists.model.imageList3
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class ListsViewModel : ViewModel() {
+
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
 
     private val _listsItems = MutableStateFlow<List<ListsItemData>>(emptyList())
     val listsItems: StateFlow<List<ListsItemData>> = _listsItems
 
-    // Elementos fijos pero flotantes que el view model toma para mostrar en el ListItemData.
-    // Próximamente estos datos serán indexados a partir de la respuesta que nos de la API de TMDB
     init {
-        _listsItems.value = listOf(
+        loadListsData()
+    }
+
+    fun loadListsData() {
+        if (_isLoading.value) return
+
+        viewModelScope.launch {
+            try {
+                _isLoading.value = true
+                delay(1000)
+                _listsItems.value = createSampleData()
+            } catch (e: Exception) {
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+
+    private fun createSampleData(): List<ListsItemData> {
+        return listOf(
             ListsItemData(
                 title = "Films directed by women",
                 movieImages = imageList1,
@@ -39,17 +63,17 @@ class ListsViewModel : ViewModel() {
                 movieImages = imageList3,
                 concept = null,
                 friend = "Buff",
-                abstract = "Soy un tío de gustos sencillos. Me gusta la dinamita, la polvora y la gasoliiina! ¿Y sabes qué tienen en común? ¡Que son baratas!",
+                abstract = "Soy un tío de gustos sencillos. Me gusta la dinamita, la pólvora y la gasolina! ¿Y sabes qué tienen en común? ¡Que son baratas!",
                 image = R.drawable.flag
             ),
             ListsItemData(
                 title = "Troperías de Iru",
                 movieImages = imageList2,
                 concept = null,
-                abstract = "Soy un tío de gustos sencillos- Me gusta la dinamita, la pólvora y la gasoliiiiiina!",
-                friend = "Abby",
+                abstract = "Soy un tío de gustos sencillos. Me gusta la dinamita, la pólvora y la gasoliiiiiina!",
+                friend = "Iru",
                 image = R.drawable.flag
-            ),
+            )
         )
     }
 }

@@ -18,7 +18,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,100 +29,79 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.cinevictor.domain.model.Movie
-import com.example.cinevictor.presentation.features.films.viewmodel.FilmsViewModel
-import org.koin.androidx.compose.koinViewModel
 
 // Construccion de la columna
 
 @Composable
 fun JournalScreen(
-    viewModel: FilmsViewModel = koinViewModel(),
     state: LazyListState,
     movies: List<Movie>,
     selectedMovie: Movie?,
     onClick: (movie: Movie) -> Unit,
     onDismiss: () -> Unit
 ) {
-    /*    var isLoading by remember { mutableStateOf(true) }
 
-    LaunchedEffect(Unit) {
-        // Simula un tiempo de carga
-        kotlinx.coroutines.delay(2000)
-        isLoading = false
-    }
-
-    if (isLoading) {
-        // Mostrar indicador de carga
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier.fillMaxSize()
+        Column(
+            Modifier
+                .fillMaxSize()
+                .padding(16.dp)
         ) {
-            CircularProgressIndicator()
-        }
-    } else {*/
+            LazyColumn(
+                verticalArrangement = Arrangement.Center,
+                contentPadding = PaddingValues(10.dp),
+                state = state
+            ) {
+                items(
+                    movies,
+                    key = { it.id }
+                ) { movie ->
+                    AsyncImage(
+                        model = movie.posterPath,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(200.dp)
+                            .size(200.dp)
+                            .clip(RoundedCornerShape(10.dp)),
+                        contentDescription = null,
+                        alignment = Alignment.Center,
+                        contentScale = ContentScale.Crop,
+                    )
 
-    Column(
-        Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        LazyColumn(
-            verticalArrangement = Arrangement.Center,
-            contentPadding = PaddingValues(10.dp),
-            state = state
-        ) {
-            items(
-                movies,
-                key = { it.id }
-            ) { movie ->
-                AsyncImage(
-                    model = movie.posterPath,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(200.dp)
-                        .size(200.dp)
-                        .clip(RoundedCornerShape(10.dp)),
-                    contentDescription = null,
-                    alignment = Alignment.Center,
-                    contentScale = ContentScale.Crop,
-                )
+                    Text(
+                        text = movie.title,
+                        textAlign = TextAlign.Left,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp,
+                        fontStyle = FontStyle.Normal
+                    )
 
-                Text(
-                    text = movie.title,
-                    textAlign = TextAlign.Left,
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp,
-                    fontStyle = FontStyle.Normal
-                )
+                    Text(
+                        text = movie.overview,
+                        color = Color.White,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 15.sp,
+                        fontStyle = FontStyle.Normal,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 3,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable(onClick = {
+                                onClick(movie)
+                            })
+                    )
 
-                Text(
-                    text = movie.overview,
-                    color = Color.White,
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 15.sp,
-                    fontStyle = FontStyle.Normal,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 3,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable(onClick = {
-                            onClick(movie)
-                        })
-                )
+                    Spacer(Modifier.height(15.dp))
 
-                Spacer(Modifier.height(15.dp))
-
+                }
             }
         }
-    }
 
-    selectedMovie?.let {
+        selectedMovie?.let {
             // Ventana modal, se pica sobre el texto que acaba en puntos suspensivos y
             //  se abre una ventana que expone el texto/sinpsis completo
             AlertDialog(
@@ -138,22 +116,17 @@ fun JournalScreen(
                         ),
                         shape = RoundedCornerShape(4.dp), // Para dar forma al botón
                         border = BorderStroke(1.dp, Color.White) // Para añadir el borde blanco/rojo
-                                            )
+                    )
                     { Text("Close", color = Color.White) }
                 },
                 containerColor = Color.Black, // Color de fondo del dialogo
                 shape = RoundedCornerShape(8.dp),
 
-            )
+                )
         }
+
 }
-//}
 
 
-@PreviewScreenSizes
-@Composable
-fun PreviewJournalScreen() {
-    Surface {
-        //JournalScreen()
-    }
-}
+
+
