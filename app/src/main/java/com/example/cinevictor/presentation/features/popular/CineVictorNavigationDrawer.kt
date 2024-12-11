@@ -190,10 +190,7 @@ fun CineVictorNavigationDrawer(
                     0 -> FilmsScreen(navigateToDetail = navigateToDetail)
                     1 -> ReviewsScreen()
                     2 -> ListsScreen()
-                    3 -> {
-                        val journalViewModel: JournalViewModel = viewModel()
-                        JournalRoute(journalViewModel)
-                    }
+                    3 -> JournalRoute()
                 }
             }
         }

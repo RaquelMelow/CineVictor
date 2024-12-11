@@ -12,12 +12,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.cinevictor.domain.model.Movie
 import com.example.cinevictor.presentation.features.popular.journal.viewmodel.JournalViewModel
+import com.example.cinevictor.presentation.features.popular.journal.viewmodel.MyViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun JournalRoute(
-    viewModel: JournalViewModel
+    viewModel: JournalViewModel = koinViewModel()
 ) {
     val uiState by viewModel.sceneListsItems.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
@@ -46,33 +50,4 @@ fun JournalRoute(
             }
         )
     }
-
-
-//    when(val uiState = uiState) {
-//        is UiState.Loading -> {Box(
-//            contentAlignment = Alignment.Center,
-//            modifier = Modifier.fillMaxSize()
-//        ) {
-//            CircularProgressIndicator()
-//          }
-//        }
-//
-//        is UiState.Success -> {
-//            uiState.movies?.let {
-//                JournalScreen(
-//                    state = state,
-//                    movies = it,
-//                    selectedMovie = selectedMovie,
-//                    onClick = { movie ->
-//                        selectedMovie = movie
-//                    },
-//                    onDismiss = {
-//                        selectedMovie = null
-//                    }
-//                )
-//            }
-//        }
-//    }
-
-
 }
