@@ -1,10 +1,17 @@
 package com.example.cinevictor.presentation.features.register.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.example.cinevictor.data.repository.AuthRepository
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class RegisterViewModel : ViewModel() {
+
+class RegisterViewModel(private val authRepository: AuthRepository) : ViewModel() {
+
+    private val _emailVerificationSent = MutableStateFlow(false)
+    val emailVerificationSent: StateFlow<Boolean> = _emailVerificationSent
 
     private val _email = MutableStateFlow("")
     val email: StateFlow<String> = _email
@@ -65,9 +72,25 @@ class RegisterViewModel : ViewModel() {
         _birthDate.value = newDate
     }
 
+    fun onShowDatePickerModal(show: Boolean) {
+        _showDatePicker.value = show
+    }
+
     fun onRegister() {
         if (isFormValid()) {
+            val auth = FirebaseAuth.getInstance()
+            auth.createUserWithEmailAndPassword(_email.value, _password.value)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val user = task.result?.user
+                        user?.let {
+                            sendVerificationEmail(user)
 
+                        }
+                    } else {
+                        _isError.value = true
+                    }
+                }
         } else {
             _isError.value = true
         }
@@ -79,4 +102,15 @@ class RegisterViewModel : ViewModel() {
                 _firstName.value.isNotEmpty() && _lastName.value.isNotEmpty() &&
                 _birthDate.value.isNotEmpty()
     }
+
+    private fun sendVerificationEmail(user: FirebaseUser) {
+        authRepository.sendVerificationEmail(user) { isSuccessful ->
+            if (isSuccessful) {
+                _emailVerificationSent.value = true
+            } else {
+                _emailVerificationSent.value = false
+            }
+        }
+    }
 }
+
