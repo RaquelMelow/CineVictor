@@ -14,19 +14,6 @@ import com.example.cinevictor.presentation.features.popular.details.view.MovieDe
 import com.example.cinevictor.presentation.features.register.view.RegisterFormScreen
 import com.example.cinevictor.presentation.navigation.destinations.AppRoute
 
-fun main() {
-    doSomething(
-        action = { id ->
-            println("Algo importante con el id: $id")
-        }
-    )
-}
-
-fun doSomething(action: (id: Int) -> Unit) {
-    println("Empezar algo...")
-    action(5)
-    println("Terminar algo...")
-}
 
 
 @SuppressLint("NewApi")
@@ -38,7 +25,7 @@ fun AppNavHost(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = AppRoute.Login
+        startDestination = AppRoute.Popular
     ) {
         composable<AppRoute.Login> {
             LoginScreen(

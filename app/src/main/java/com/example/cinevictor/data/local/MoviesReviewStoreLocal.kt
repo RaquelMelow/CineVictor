@@ -3,7 +3,7 @@ package com.example.cinevictor.data.local
 import com.example.cinevictor.R
 import com.example.cinevictor.domain.model.MovieLocal
 
-object MoviesReviewStore {
+object MoviesReviewStoreLocal {
     val popularThisWeek = listOf(
         MovieLocal(
             title = "Challenger",
