@@ -3,9 +3,11 @@ import android.net.ConnectivityManager
 import androidx.room.Room
 import com.example.cinevictor.core.framework.network.interceptors.ConnectivityInterceptor
 import com.example.cinevictor.core.framework.network.retrofit.MovieService
+import com.example.cinevictor.core.framework.network.retrofit.ReviewService
 import com.example.cinevictor.data.local.database.AppDatabase
 import com.example.cinevictor.data.repository.AuthRepository
 import com.example.cinevictor.data.repository.MovieRepository
+import com.example.cinevictor.data.repository.ReviewRepository
 import com.example.cinevictor.presentation.features.films.viewmodel.FilmsViewModel
 import com.example.cinevictor.presentation.features.login.viewmodel.LoginViewModel
 import com.example.cinevictor.presentation.features.popular.details.viewmodel.MovieDetailViewModel
@@ -38,6 +40,7 @@ val presentationModule = module {
 val dataModule = module {
     singleOf(::MovieRepository)
     singleOf(::AuthRepository)
+    singleOf(::ReviewRepository)
 }
 
 val coreModule = module {
@@ -78,6 +81,10 @@ val coreModule = module {
     }
 
     single {
+        get<Retrofit>().create(ReviewService::class.java)
+    }
+
+    single {
         Room.databaseBuilder(
             androidApplication(),
             AppDatabase::class.java,
@@ -88,4 +95,7 @@ val coreModule = module {
     }
 
     single { get<AppDatabase>().movieDao() }
+
+    single { get<AppDatabase>().reviewDao() }
+
 }

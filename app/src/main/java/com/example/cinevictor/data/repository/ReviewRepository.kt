@@ -25,9 +25,10 @@ class ReviewRepository(
     private val movieDao: MovieDao,
 ) {
 
-    fun getReviewsByMovieId(movieId: Int, page: Int = 1): Flow<ApiResult<List<ReviewWithMovie>, DataError>> {
+    fun getReviewsByMovieId(page: Int = 1): Flow<ApiResult<List<ReviewWithMovie>, DataError>> {
         return flow {
-            val localReviews = reviewDao.getReviewsByMovieId(movieId)
+
+            val localReviews = reviewDao.getAllReviews().first()
 
             if (localReviews.isNotEmpty()) {
                 val reviewsWithMovies = localReviews.map { reviewEntity ->
@@ -36,24 +37,27 @@ class ReviewRepository(
                 }
 
                 emit(ApiResult.Success(reviewsWithMovies))
-            }
+            } else {
+                movieDao.getAllMovies().collect {
+                    it.forEach { movie ->
+                        when (val result = fetchReviewsFromApi(movie.uid, page)) {
+                            is ApiResult.Success -> {
+                                result.data.forEach { review ->
+                                    reviewDao.insertReviews(listOf(review.toEntity(movie.uid)))
+                                }
 
-            when (val result = fetchReviewsFromApi(movieId, page)) {
-                is ApiResult.Success -> {
-                    result.data.forEach { review ->
-                        reviewDao.insertReviews(listOf(review.toEntity(movieId)))
+                                val reviewsWithMovies = result.data.map { review ->
+                                    mapReviewWithMovie(review.toEntity(movie.uid), movie)
+                                }
+
+                                emit(ApiResult.Success(reviewsWithMovies))
+                            }
+
+                            is ApiResult.Error -> {
+                                emit(ApiResult.Error(result.error))
+                            }
+                        }
                     }
-
-                    val reviewsWithMovies = result.data.map { review ->
-                        val movie = movieDao.getMovieById(movieId)
-                        mapReviewWithMovie(review.toEntity(movieId), movie)
-                    }
-
-                    emit(ApiResult.Success(reviewsWithMovies))
-                }
-
-                is ApiResult.Error -> {
-                    emit(ApiResult.Error(result.error))
                 }
             }
         }

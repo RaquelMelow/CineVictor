@@ -37,6 +37,13 @@ fun List<ReviewDto>.toDomainList(movieId: Int): List<Review> {
     return this.map { reviewDto -> reviewDto.toDomain(movieId) }
 }
 
+fun getFullImageUrl(avatarPath: String?): String? {
+    return if (avatarPath != null) {
+        "https://image.tmdb.org/t/p/w200$avatarPath"
+    } else null
+}
+
+
 fun ReviewDto.toDomain(movieId: Int) = Review(
     id = id,
     movieId = movieId,
@@ -47,6 +54,6 @@ fun ReviewDto.toDomain(movieId: Int) = Review(
     url = url,
     authorName = authorDetails.name.orEmpty(),
     authorUsername = authorDetails.username.orEmpty(),
-    authorAvatarPath = authorDetails.avatarPath,
+    authorAvatarPath = getFullImageUrl(authorDetails.avatarPath),
     rating = authorDetails.rating
 )
