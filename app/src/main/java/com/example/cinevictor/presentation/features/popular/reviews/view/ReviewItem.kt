@@ -1,14 +1,15 @@
 package com.example.cinevictor.presentation.features.popular.reviews.view
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -21,86 +22,108 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.cinevictor.presentation.features.popular.reviews.model.ReviewDatalLocal
+import coil.compose.AsyncImage
+import com.example.cinevictor.data.local.database.ReviewWithMovie
 
 @Composable
-fun ReviewItem(reviewData: ReviewDatalLocal) {
+fun ReviewItem(review: ReviewWithMovie) {
     Card(
-       colors = CardDefaults.cardColors(MaterialTheme.colorScheme.background)
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.background),
+        modifier = Modifier.padding(8.dp)
     ) {
-        Column(modifier = Modifier.padding(top = 10.dp)) {
+        Column(modifier = Modifier.padding(10.dp)) {
 
             Row(
-                Modifier.fillMaxSize(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = reviewData.movie.title,
-                    style = MaterialTheme.typography.titleMedium
+                    text = review.movieTitle,
+                    color = Color.White,
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.weight(1f)
                 )
 
-                Text(
-                    text = "${reviewData.movie.year}",
-                    style = MaterialTheme.typography.bodyLarge
-                    )
+                Spacer(modifier = Modifier.width(8.dp))
 
+                Text(
+                    text = review.releaseDate,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color.Gray
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // Autor y avatar
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                review.authorAvatar?.let {
+                    AsyncImage(
+                        model = it,
+                        contentDescription = "Author Avatar",
+                        modifier = Modifier
+                            .size(24.dp)
+                            .clip(CircleShape)
+                            .border(1.dp, Color.Gray, CircleShape),
+                        contentScale = ContentScale.Crop
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(8.dp))
+
+                Text(
+                    text = review.author.ifBlank { "Unknown" },
+                    style = MaterialTheme.typography.bodySmall,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    )
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                Text(
-                    text = reviewData.user.name,
-                    modifier = Modifier.padding(top = 2.dp),
-                    style = MaterialTheme.typography.bodyLarge
+                review.rating?.let {
+                    Text(
+                        text = "⭐ ${it}/10",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.Green
                     )
-
-
-                Image(
-                    painter = painterResource(id = reviewData.user.image),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .padding(start = 2.dp)
-                        .size(width = 20.dp, height = 20.dp)
-                        .border(1.dp, Color(0xFFAFB3D0), CircleShape)
-                        .clip(CircleShape)
-                )
+                }
             }
 
-            Text(
-                "${reviewData.rating}/10",
-                modifier = Modifier
-                    .padding(2.dp),
-                style = MaterialTheme.typography.labelSmall
+            Spacer(modifier = Modifier.height(8.dp))
 
-            )
-
-
+            // Reseña y póster
             Row {
-                Image(
-                    painter = painterResource(id = reviewData.movie.image),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
+                AsyncImage(
+                    model = review.moviePosterUrl,
+                    contentDescription = "Movie Poster",
                     modifier = Modifier
-                        .size(width = 70.dp, height = 100.dp)
-                        .border(1.dp, Color.White)
+                        .size(70.dp, 100.dp)
+                        .border(1.dp, MaterialTheme.colorScheme.onSurfaceVariant),
+                    contentScale = ContentScale.Crop
                 )
 
+                Spacer(modifier = Modifier.width(8.dp))
 
                 Text(
-                    text = reviewData.comment,
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier
-                        .align(Alignment.Top)
-                        .padding(start = 2.dp),
+                    text = review.content,
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.weight(1f),
+                    maxLines = 4,
+                    overflow = TextOverflow.Ellipsis,
+                    color = Color.White
                 )
-
-
             }
+
+            Spacer(modifier = Modifier.height(8.dp))
 
             HorizontalDivider(
-               // color = Color.Gray,
                 thickness = 1.dp,
                 modifier = Modifier.padding(vertical = 8.dp)
             )
