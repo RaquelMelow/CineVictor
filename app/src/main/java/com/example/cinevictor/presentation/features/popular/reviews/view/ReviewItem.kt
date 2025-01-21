@@ -1,5 +1,6 @@
 package com.example.cinevictor.presentation.features.popular.reviews.view
 
+import android.R
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -31,7 +33,8 @@ import com.example.cinevictor.data.local.database.ReviewWithMovie
 @Composable
 fun ReviewItem(review: ReviewWithMovie) {
     Card(
-        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.background),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF333333)),
+        shape = RectangleShape,
         modifier = Modifier.padding(8.dp)
     ) {
         Column(modifier = Modifier.padding(10.dp)) {
@@ -97,7 +100,6 @@ fun ReviewItem(review: ReviewWithMovie) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Reseña y póster
             Row {
                 AsyncImage(
                     model = review.moviePosterUrl,

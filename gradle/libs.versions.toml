@@ -29,8 +29,11 @@ koin = "3.5.6"
 composeMaterial = "1.4.0"
 roomCommon = "2.6.1"
 firebaseBom = "33.7.0"
+accompanist = "0.32.0"
+
 
 [libraries]
+accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }

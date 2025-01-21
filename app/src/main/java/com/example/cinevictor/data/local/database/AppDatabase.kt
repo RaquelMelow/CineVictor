@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.example.cinevictor.data.local.dao.MovieDao
 import com.example.cinevictor.data.local.dao.ReviewDao
 
-@Database(entities = [MovieEntity::class, ReviewEntity::class], version = 1)
+@Database(entities = [MovieEntity::class, ReviewEntity::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun movieDao(): MovieDao

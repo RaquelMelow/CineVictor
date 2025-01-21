@@ -15,12 +15,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.cinevictor.R
 import com.example.cinevictor.presentation.features.login.viewmodel.LoginState
 import com.example.cinevictor.presentation.features.login.viewmodel.LoginViewModel
+import com.example.cinevictor.presentation.ui.util.SystemUiConfig
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -28,7 +30,9 @@ import org.koin.androidx.compose.koinViewModel
 fun LoginScreen(
     navigationToRegister: () -> Unit,
     navigationToHome: () -> Unit,
-    viewModel: LoginViewModel = koinViewModel()
+    viewModel: LoginViewModel = koinViewModel(),
+    statusBarColor: Color = Color.Black,
+    useDarkIcons: Boolean = false
 ) {
     val email by viewModel.email.collectAsState()
     val isEmailValid by viewModel.isEmailValid.collectAsState()
@@ -39,6 +43,8 @@ fun LoginScreen(
 
     val backgroundImage = painterResource(id = R.drawable.logincinevictorconlogo)
 
+    SystemUiConfig(statusBarColor = statusBarColor, useDarkIcons = useDarkIcons)
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -46,6 +52,7 @@ fun LoginScreen(
         Image(
             painter = backgroundImage,
             contentDescription = "Fondo",
+            contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
         )
 
@@ -78,14 +85,12 @@ fun LoginScreen(
                             color = Color.White
                         )
                     }
-
                 }
                 is LoginState.Success -> {
                     LaunchedEffect(Unit) {
                         navigationToHome()
                     }
                 }
-
                 is LoginState.EmailVerificationSent -> {
                     Text(
                         text = "Email de verificación enviado",
@@ -101,17 +106,7 @@ fun LoginScreen(
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                     )
                 }
-
-
             }
         }
     }
 }
-
-
-@Preview(showBackground = true)
-@Composable
-fun LoginScreenPreview() {
-    LoginScreen(navigationToRegister = { }, navigationToHome = { })
-}
-

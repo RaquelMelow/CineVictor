@@ -27,8 +27,8 @@ android {
             useSupportLibrary = true
         }
 
-        buildConfigField("String", "API_KEY", gradleLocalProperties(rootDir, providers).getProperty("API_KEY"))
-        buildConfigField("String", "AUTH_TOKEN", gradleLocalProperties(rootDir, providers).getProperty("AUTH_TOKEN"))
+        buildConfigField("String", "API_KEY", "\"${gradleLocalProperties(rootDir, providers).getProperty("API_KEY")}\"")
+        buildConfigField("String", "AUTH_TOKEN", "\"${gradleLocalProperties(rootDir, providers).getProperty("AUTH_TOKEN")}\"")
     }
 
     buildTypes {
@@ -62,6 +62,8 @@ android {
 }
 
 dependencies {
+
+    implementation(libs.accompanist.systemuicontroller)
 
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)

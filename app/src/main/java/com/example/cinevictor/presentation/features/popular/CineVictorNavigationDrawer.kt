@@ -1,9 +1,11 @@
 package com.example.cinevictor.presentation.features.popular
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
@@ -51,20 +53,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.cinevictor.domain.model.NavigationItems
 import com.example.cinevictor.presentation.features.popular.films.view.FilmsScreen
 import com.example.cinevictor.presentation.features.popular.journal.view.JournalRoute
-import com.example.cinevictor.presentation.features.popular.journal.viewmodel.JournalViewModel
 import com.example.cinevictor.presentation.features.popular.lists.view.ListsScreen
 import com.example.cinevictor.presentation.features.reviews.view.ReviewsScreen
+import com.example.cinevictor.presentation.ui.util.SystemUiConfig
 import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CineVictorNavigationDrawer(
-    navigateToDetail: (id: Int) -> Unit
+    navigateToDetail: (id: Int) -> Unit,
+    statusBarColor: Color = Color(0xFF727272),
+    useDarkIcons: Boolean = false
 ) {
     val items = listOf(
         NavigationItems("Popular", Icons.Filled.Menu, Icons.Outlined.Menu),
@@ -87,12 +90,9 @@ fun CineVictorNavigationDrawer(
             ModalDrawerSheet(
                 drawerContainerColor = Color(0xFF727272),
                 drawerShape = RectangleShape,
-                drawerContentColor = Color.White
+                drawerContentColor = Color.White,
+                modifier = Modifier.fillMaxSize()
             ) {
-
-
-                Spacer(modifier = Modifier.height(16.dp))
-
                 items.forEachIndexed { index, item ->
                     NavigationDrawerItem(
                         label = { Text(text = item.title, color = Color.White) },
@@ -118,11 +118,16 @@ fun CineVictorNavigationDrawer(
                     )
                 }
             }
-        }
+        },
+        modifier = Modifier.fillMaxSize()
     ) {
+        SystemUiConfig(statusBarColor = statusBarColor, useDarkIcons = useDarkIcons)
+
         Scaffold(
             topBar = {
                 TopAppBar(
+                    modifier = Modifier
+                        .consumeWindowInsets(WindowInsets.statusBars),
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = Color(0xFF727272)
                     ),
@@ -148,12 +153,14 @@ fun CineVictorNavigationDrawer(
                         }
                     }
                 )
-            }
+            },
         ) { innerPadding ->
             var selectedTab by remember { mutableIntStateOf(0) }
 
             Column(
-                modifier = Modifier.padding(innerPadding)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
             ) {
                 TabRow(
                     selectedTabIndex = selectedTab,
@@ -172,13 +179,12 @@ fun CineVictorNavigationDrawer(
                             onClick = { selectedTab = index },
                             text = {
                                 Text(
-                                    modifier = Modifier.padding(horizontal = 2.dp),
                                     maxLines = 2,
                                     overflow = TextOverflow.Ellipsis,
                                     text = tabName,
                                     textAlign = TextAlign.Center,
                                     color = Color.White,
-                                    fontSize = 14.sp,
+                                    fontSize = 12.sp,
                                     fontWeight = if (selectedTab == index) FontWeight.Bold else FontWeight.Normal
                                 )
                             }
@@ -196,6 +202,3 @@ fun CineVictorNavigationDrawer(
         }
     }
 }
-
-
-

@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
@@ -52,11 +53,12 @@ fun ListsScreen(
     Column(
         Modifier
             .fillMaxSize()
-            .padding(16.dp)) {
+            .padding(16.dp)
+    ) {
 
         Text(
             text = "New from friends",
-            color = Color.Black,
+            color = Color.White,
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp
         )
@@ -73,76 +75,77 @@ fun ListsScreen(
 
 @Composable
 fun ListsItem(data: ListsItemData) {
-    Column(
-        modifier = Modifier
+    Card(
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF333333)),
+        shape = RectangleShape,
+        modifier = Modifier.padding(8.dp)
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(15.dp)
-        ) {
-            data.title?.let {
+        Column(modifier = Modifier.padding(10.dp)) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(15.dp)
+            ) {
+                data.title?.let {
+                    Text(
+                        text = it,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp
+                    )
+                }
+
+                Spacer(Modifier.weight(1f))
+
                 Text(
-                    text = it,
+                    text = data.friend,
                     color = Color.Gray,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp,
-                    fontStyle = FontStyle.Normal
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 12.sp,
+                    fontStyle = FontStyle.Italic
+                )
+
+                Image(
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .size(40.dp),
+                    contentScale = ContentScale.Crop,
+                    painter = painterResource(data.image),
+                    contentDescription = null
                 )
             }
 
-            Spacer(Modifier.weight(1f))
-
-            Text(
-                text = data.friend,
-                color = Color.Gray,
-                fontWeight = FontWeight.Normal,
-                fontSize = 15.sp,
-                fontStyle = FontStyle.Italic
-            )
-
-            Image(
+            LazyRow(
                 modifier = Modifier
-                    .clip(CircleShape)
-                    .size(40.dp),
-                contentScale = ContentScale.Crop,
-                painter = painterResource(data.image),
-                contentDescription = null
-            )
-        }
-
-        LazyRow(
-            modifier = Modifier
-                .padding(horizontal = 5.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(2.dp)
-        ) {
-            items(data.movieImages) { imageRes ->
-                MovieRowItem(imageRes)
-
+                    .padding(horizontal = 5.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(2.dp)
+            ) {
+                items(data.movieImages) { imageRes ->
+                    MovieRowItem(imageRes)
+                }
             }
-        }
 
-        Spacer(Modifier.height(16.dp))
+            Spacer(Modifier.height(16.dp))
 
-        Text(
-            text = data.concept ?: "",
-            color = Color.Gray,
-            fontWeight = FontWeight.Bold,
-            fontSize = 16.sp
-        )
-
-        data.abstract?.let {
             Text(
-                text = data.abstract,
-                color = Color.Gray,
-                fontWeight = FontWeight.Normal,
-                fontSize = 15.sp
+                text = data.concept ?: "",
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp
             )
+
+            data.abstract?.let {
+                Text(
+                    text = data.abstract,
+                    color = Color.Gray,  
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 15.sp
+                )
+            }
         }
     }
 }
 
-// Genera un color aleatorio en el borde dde la Card
 val borderColor = Color(
     red = Random.nextFloat(),
     green = Random.nextFloat(),
@@ -150,21 +153,16 @@ val borderColor = Color(
     alpha = 1f
 )
 
-
 @Composable
 fun MovieRowItem(posterPath: String) {
     Card(
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 0.dp
-        ),
-            modifier = Modifier
-            .border( width = 4.dp,
-            color = borderColor,
-            shape = RoundedCornerShape(4.dp),
-
-        //border = BorderStroke(4.dp, color = Pink40)
-        )
-
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        modifier = Modifier
+            .border(
+                width = 4.dp,
+                color = borderColor,
+                shape = RoundedCornerShape(4.dp)
+            )
     ) {
         AsyncImage(
             model = posterPath,
@@ -174,22 +172,9 @@ fun MovieRowItem(posterPath: String) {
                 .width(120.dp)
                 .padding(2.dp)
                 .clip(RoundedCornerShape(2.dp))
-
         )
     }
 }
-
-@Preview(
-    name = "Pixel 5",
-    device = "spec:shape=Normal,width=1080,height=2400,unit=px,dpi=480",
-)
-@Composable
-fun PreviewListScreen() {
-    Surface {
-        ListsScreen()
-    }
-}
-
 
 
 

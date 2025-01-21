@@ -31,7 +31,7 @@ class ListsViewModel(
 
             _listsItems.value = listOf(
                 ListsItemData(
-                    title = "Films directed by women",
+                    title = "Directed by women",
                     movieImages = dramaList,
                     concept = "Check out the official top narrative films by women directors list: DRAMA",
                     abstract = "Female directors are still underrepresented in the film industry and to this list is a place to highlight their work.",
